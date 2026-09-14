@@ -32,7 +32,7 @@ jobs:
       - name: Upload site artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: Dental_Legacy_CR_Web_Premium/Dental_Legacy_CR_Web
+          path: .
 
       - name: Deploy to GitHub Pages
         id: deployment
