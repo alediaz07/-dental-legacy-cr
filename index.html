@@ -246,14 +246,11 @@ img{max-width:100%;display:block}
 .media-label{position:absolute;left:20px;bottom:20px;background:rgba(248,245,239,.9);backdrop-filter:blur(12px);padding:10px 14px;border-radius:999px;font-size:11px;letter-spacing:.08em;text-transform:uppercase}
 .reels{background:#181818;color:#f5f1e9;padding:clamp(90px,12vw,160px) clamp(22px,6vw,92px)}
 .reels-head{display:flex;justify-content:space-between;gap:40px;align-items:end;margin-bottom:55px}
-.reels-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.reels-grid{display:grid;grid-template-columns:repeat(3,300px);justify-content:center;gap:18px}
 .reel-slot{aspect-ratio:9/16;border:1px solid rgba(255,255,255,.16);border-radius:22px;position:relative;overflow:hidden;background:linear-gradient(145deg,#252525,#111);display:grid;place-items:center}
-.reel-slot::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 35%,rgba(205,170,130,.14),transparent 38%)}
-.reel-slot video{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:cover}
-.reel-inner{position:relative;text-align:center;padding:25px}
-.play{width:58px;height:58px;border:1px solid rgba(255,255,255,.45);border-radius:50%;display:grid;place-items:center;margin:0 auto 18px;font-size:18px}
-.reel-inner strong{display:block;font-family:"Playfair Display",serif;font-size:25px;font-weight:500;margin-bottom:8px}
-.reel-inner span{font-size:12px;opacity:.55}
+.reel-slot video{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:cover;border-radius:inherit}
+.reel-slot:hover{transform:scale(1.012);box-shadow:0 18px 38px rgba(0,0,0,.2)}
+.reel-slot{transition:transform .35s var(--ease),box-shadow .35s var(--ease)}
 .logo-strip{display:flex;align-items:center;justify-content:center;padding:70px 24px;background:#f5e5d2}
 .logo-strip img{width:min(580px,82vw);mix-blend-mode:multiply}
 @media(max-width:860px){
@@ -262,8 +259,18 @@ img{max-width:100%;display:block}
  .media-head,.media-grid{grid-template-columns:1fr}
  .media-card{min-height:500px}
  .reels-head{display:block}
- .reels-grid{grid-template-columns:1fr;max-width:420px;margin:auto}
  .hero .tooth-wrap{display:none}
+}
+@media(min-width:1000px) and (max-width:1199px){
+ .reels-grid{grid-template-columns:repeat(3,280px);gap:16px}
+}
+@media(max-width:999px){
+ .reels-grid{display:flex;justify-content:flex-start;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-left:clamp(22px,6vw,92px);margin-right:calc(-1 * clamp(22px,6vw,92px));padding-right:clamp(22px,6vw,92px);scrollbar-width:none;-webkit-overflow-scrolling:touch}
+ .reels-grid::-webkit-scrollbar{display:none}
+ .reel-slot{flex:0 0 280px;scroll-snap-align:start}
+}
+@media(max-width:600px){
+ .reel-slot{flex-basis:84vw}
 }
 
 </style>
@@ -417,14 +424,14 @@ img{max-width:100%;display:block}
   <div class="reels-head reveal">
     <div>
       <span class="eyebrow" style="color:#cbb8a1">Experiencias en movimiento</span>
-      <h2 class="big" style="margin-top:18px">Reels preparados<br>para entrar al recorrido.</h2>
+      <h2 class="big" style="margin-top:18px">Experiencias<br>en movimiento.</h2>
     </div>
-    <p style="max-width:440px;line-height:1.7;opacity:.62">La arquitectura ya reserva espacios 9:16 para videos reales. Al añadirlos, pueden reproducirse en silencio, abrirse con controles o convertirse en escenas controladas por scroll.</p>
+    <p style="max-width:440px;line-height:1.7;opacity:.62">Momentos de la clínica, los tratamientos y la experiencia Dental Legacy, reunidos en una selección visual.</p>
   </div>
   <div class="reels-grid">
-    <article class="reel-slot reveal" data-reel-slot="1"><video src="assets/reel-01.mp4" autoplay muted loop playsinline preload="metadata"></video><div class="reel-inner"><div class="play">▶</div><strong>Reel 01</strong><span>Preparado para video vertical</span></div></article>
-    <article class="reel-slot reveal" data-reel-slot="2"><video src="assets/reel-02.mp4" autoplay muted loop playsinline preload="metadata"></video><div class="reel-inner"><div class="play">▶</div><strong>Reel 02</strong><span>Preparado para tratamiento / proceso</span></div></article>
-    <article class="reel-slot reveal" data-reel-slot="3"><video src="assets/reel-03.mp4" autoplay muted loop playsinline preload="metadata"></video><div class="reel-inner"><div class="play">▶</div><strong>Reel 03</strong><span>Preparado para clínica / experiencia</span></div></article>
+    <article class="reel-slot reveal" data-reel-slot="1"><video src="assets/reel-01.mp4" autoplay muted loop playsinline preload="metadata"></video></article>
+    <article class="reel-slot reveal" data-reel-slot="2"><video src="assets/reel-02.mp4" autoplay muted loop playsinline preload="metadata"></video></article>
+    <article class="reel-slot reveal" data-reel-slot="3"><video src="assets/reel-03.mp4" autoplay muted loop playsinline preload="metadata"></video></article>
   </div>
 </section>
 
