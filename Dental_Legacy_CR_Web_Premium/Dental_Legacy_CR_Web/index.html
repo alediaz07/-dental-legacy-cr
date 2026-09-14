@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dental Legacy CR | Clínica dental en San Vicente, Moravia</title>
+<meta name="description" content="Dental Legacy CR — clínica dental en San Vicente de Moravia, San José. Atención odontológica, implantes dentales y ortodoncia.">
+<meta name="theme-color" content="#f6f2eb">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;1,500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#171717;
+  --paper:#f4f0e8;
+  --paper-2:#ebe5da;
+  --cream:#faf8f3;
+  --accent:#8f7257;
+  --line:rgba(23,23,23,.13);
+  --ease:cubic-bezier(.2,.75,.2,1);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:Manrope,system-ui,sans-serif;overflow-x:hidden;
+}
+body::selection{background:#1d1d1d;color:#fff}
+a{color:inherit;text-decoration:none}
+button,a{ -webkit-tap-highlight-color:transparent}
+img{max-width:100%;display:block}
+.reduced *{animation:none!important;transition:none!important}
+.nav{
+  position:fixed;z-index:50;top:0;left:0;width:100%;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:22px clamp(20px,4vw,66px);mix-blend-mode:difference;color:#fff;
+}
+.brand{font-size:14px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.navlinks{display:flex;align-items:center;gap:28px;font-size:13px}
+.navlinks a{opacity:.78;transition:opacity .25s ease}
+.navlinks a:hover{opacity:1}
+.pill{
+  border:1px solid currentColor;border-radius:999px;padding:11px 17px;
+  display:inline-flex;gap:10px;align-items:center;white-space:nowrap
+}
+.pill .arr{transition:transform .25s ease}
+.pill:hover .arr{transform:translateX(4px)}
+.progress{
+  position:fixed;z-index:60;left:0;top:0;width:100%;height:2px;background:rgba(255,255,255,.15)
+}
+.progress i{display:block;height:100%;width:0;background:#fff;transform-origin:left}
+.hero{
+  min-height:100svh;position:relative;display:grid;place-items:center;overflow:hidden;background:#141414;color:#f8f5ef;
+}
+.hero-grid{
+  width:min(1280px,92vw);display:grid;grid-template-columns:1.15fr .85fr;align-items:center;gap:6vw;padding-top:80px
+}
+.kicker{font-size:12px;text-transform:uppercase;letter-spacing:.18em;opacity:.62;margin-bottom:20px}
+.hero h1{
+  margin:0;font-family:"Playfair Display",serif;font-weight:500;font-size:clamp(64px,9vw,142px);
+  line-height:.84;letter-spacing:-.045em;
+}
+.hero h1 em{font-weight:500}
+.hero-copy p{
+  max-width:540px;font-size:clamp(16px,1.4vw,20px);line-height:1.65;opacity:.76;margin:28px 0 34px
+}
+.actions{display:flex;flex-wrap:wrap;gap:12px}
+.cta{
+  display:inline-flex;align-items:center;gap:12px;border-radius:999px;padding:14px 19px;font-size:14px;
+  border:1px solid rgba(255,255,255,.25);transition:transform .3s var(--ease),background .3s ease
+}
+.cta.primary{background:#f7f2ea;color:#171717;border-color:#f7f2ea}
+.cta:hover{transform:translateY(-2px)}
+.tooth-wrap{
+  position:relative;height:min(72vh,720px);display:grid;place-items:center;
+}
+.tooth{
+  width:min(42vw,460px);aspect-ratio:.74;position:relative;filter:drop-shadow(0 40px 80px rgba(0,0,0,.35));
+}
+.tooth svg{width:100%;height:100%;overflow:visible}
+.tooth path{stroke:#f6f1e8;stroke-width:1.25;fill:rgba(255,255,255,.035);vector-effect:non-scaling-stroke}
+.ring{
+  position:absolute;border:1px solid rgba(255,255,255,.12);border-radius:50%;inset:12%;
+  animation:orbit 14s linear infinite
+}
+.ring::after{content:"";position:absolute;width:7px;height:7px;border-radius:50%;background:#f3eee4;top:8%;left:50%}
+@keyframes orbit{to{transform:rotate(360deg)}}
+.scroll-note{
+  position:absolute;bottom:26px;left:clamp(20px,4vw,66px);font-size:11px;letter-spacing:.18em;text-transform:uppercase;opacity:.55
+}
+.scroll-note::after{content:"";display:inline-block;width:48px;height:1px;background:currentColor;margin-left:12px;vertical-align:middle}
+
+.story{
+  position:relative;height:360vh;background:var(--paper);color:var(--ink)
+}
+.story-sticky{
+  position:sticky;top:0;height:100svh;overflow:hidden;display:grid;place-items:center
+}
+.story-bg{
+  position:absolute;inset:0;background:
+  radial-gradient(circle at 70% 30%,rgba(143,114,87,.16),transparent 28%),
+  linear-gradient(180deg,var(--paper),var(--paper-2));
+}
+.story-tooth{
+  position:absolute;width:min(43vw,510px);left:50%;top:50%;transform:translate(-50%,-50%);
+  opacity:.95;will-change:transform
+}
+.story-tooth svg{width:100%}
+.story-tooth path{fill:none;stroke:#8c755f;stroke-width:1.1;vector-effect:non-scaling-stroke}
+.scene{
+  position:absolute;inset:0;padding:9vh clamp(24px,7vw,110px);display:flex;align-items:flex-end;pointer-events:none;
+}
+.scene .copy{max-width:650px;opacity:0;transform:translateY(40px)}
+.scene .num{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
+.scene h2{
+  font-family:"Playfair Display",serif;font-size:clamp(44px,7vw,96px);line-height:.95;font-weight:500;letter-spacing:-.035em;margin:0 0 18px
+}
+.scene p{max-width:520px;font-size:clamp(15px,1.25vw,18px);line-height:1.7;color:rgba(23,23,23,.68)}
+.scene-2{justify-content:flex-end;text-align:right;align-items:center}
+.scene-2 p{margin-left:auto}
+.scene-3{align-items:center}
+.chapter{
+  position:absolute;right:clamp(24px,4vw,70px);top:50%;transform:translateY(-50%);display:grid;gap:8px
+}
+.chapter span{width:3px;height:34px;border-radius:5px;background:rgba(23,23,23,.14);overflow:hidden}
+.chapter span i{display:block;width:100%;height:0;background:#6f5945}
+
+.section{padding:clamp(90px,12vw,170px) clamp(22px,6vw,92px)}
+.intro-grid{display:grid;grid-template-columns:.65fr 1.35fr;gap:8vw;align-items:start}
+.eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:.18em;color:var(--accent)}
+.big{
+  font-family:"Playfair Display",serif;font-size:clamp(48px,6.4vw,92px);line-height:1;letter-spacing:-.035em;margin:0
+}
+.lead{font-size:clamp(18px,1.7vw,24px);line-height:1.6;max-width:760px;color:rgba(23,23,23,.68)}
+.services{border-top:1px solid var(--line)}
+.service-row{
+  display:grid;grid-template-columns:80px 1fr 1fr 34px;gap:24px;align-items:center;padding:30px 0;border-bottom:1px solid var(--line);
+  transition:padding .35s var(--ease)
+}
+.service-row:hover{padding-left:12px}
+.service-row .index{font-size:12px;color:var(--accent)}
+.service-row h3{margin:0;font-size:clamp(25px,3vw,46px);font-weight:500;letter-spacing:-.03em}
+.service-row p{margin:0;color:rgba(23,23,23,.62);line-height:1.65}
+.service-row .plus{font-size:26px;font-weight:300}
+
+.proof{
+  background:#191919;color:#f3efe7;padding:clamp(90px,12vw,160px) clamp(22px,6vw,92px)
+}
+.proof-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:8vw;align-items:end}
+.rating{
+  display:flex;align-items:end;gap:18px;margin-top:30px
+}
+.rating strong{font-family:"Playfair Display",serif;font-size:clamp(72px,10vw,150px);font-weight:500;line-height:.8}
+.rating-meta{padding-bottom:8px}
+.stars{letter-spacing:.08em;color:#d8b56f}
+.muted{opacity:.6}
+.quote{
+  border-left:1px solid rgba(255,255,255,.2);padding-left:28px;font-family:"Playfair Display",serif;
+  font-size:clamp(28px,3vw,44px);line-height:1.25
+}
+
+.location{display:grid;grid-template-columns:1fr 1fr;min-height:82vh}
+.map-art{
+  position:relative;min-height:520px;background:#d8d3ca;overflow:hidden
+}
+.map-art::before{
+  content:"";position:absolute;inset:-30%;
+  background:
+   repeating-linear-gradient(23deg,transparent 0 46px,rgba(23,23,23,.08) 47px 49px,transparent 50px 85px),
+   repeating-linear-gradient(118deg,transparent 0 72px,rgba(23,23,23,.07) 73px 75px,transparent 76px 110px);
+  transform:rotate(-4deg)
+}
+.pin{
+  position:absolute;left:55%;top:44%;width:64px;height:64px;border-radius:50% 50% 50% 0;background:#1b1b1b;transform:rotate(-45deg);
+  display:grid;place-items:center;box-shadow:0 18px 35px rgba(0,0,0,.18)
+}
+.pin::after{content:"";width:18px;height:18px;border-radius:50%;background:var(--paper);transform:rotate(45deg)}
+.location-copy{
+  background:var(--cream);padding:clamp(55px,7vw,100px);display:flex;flex-direction:column;justify-content:center
+}
+.location-copy h2{font-family:"Playfair Display",serif;font-size:clamp(52px,7vw,96px);line-height:.96;margin:0 0 34px;font-weight:500}
+.info{display:grid;gap:18px;margin:22px 0 34px}
+.info-item{display:flex;justify-content:space-between;gap:30px;padding-bottom:16px;border-bottom:1px solid var(--line);font-size:14px}
+.info-item span:first-child{opacity:.55}
+.info-item strong{font-weight:500;text-align:right}
+.footer-cta{
+  min-height:86vh;background:var(--paper-2);display:grid;place-items:center;text-align:center;padding:70px 24px;position:relative;overflow:hidden
+}
+.footer-cta h2{font-family:"Playfair Display",serif;font-size:clamp(56px,9vw,140px);line-height:.88;letter-spacing:-.04em;font-weight:500;margin:0}
+.footer-cta p{margin:26px auto 32px;max-width:560px;color:rgba(23,23,23,.65);line-height:1.65}
+.darkpill{border-color:rgba(23,23,23,.2);background:#171717;color:#fff}
+.footer{
+  padding:26px clamp(22px,6vw,92px);display:flex;justify-content:space-between;gap:20px;border-top:1px solid var(--line);font-size:12px;color:rgba(23,23,23,.6)
+}
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+
+@media(max-width:860px){
+  .navlinks a:not(.pill){display:none}
+  .hero-grid{grid-template-columns:1fr;gap:4vh;padding-top:110px}
+  .hero h1{font-size:clamp(68px,19vw,110px)}
+  .tooth-wrap{height:42vh;min-height:340px}
+  .tooth{width:min(68vw,380px)}
+  .scroll-note{display:none}
+  .scene{padding:10vh 24px}
+  .scene-2{text-align:left;justify-content:flex-start;align-items:flex-end}
+  .scene-2 p{margin-left:0}
+  .chapter{right:14px}
+  .story-tooth{width:min(80vw,460px)}
+  .intro-grid,.proof-grid,.location{grid-template-columns:1fr}
+  .intro-grid{gap:36px}
+  .service-row{grid-template-columns:46px 1fr 28px;gap:12px}
+  .service-row p{grid-column:2/4}
+  .map-art{min-height:420px}
+  .location-copy{padding:64px 24px}
+  .footer{flex-direction:column}
+}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .ring{animation:none}
+  .reveal{opacity:1;transform:none;transition:none}
+}
+
+.real-hero-photo{
+  position:absolute;inset:0;z-index:0;overflow:hidden;
+}
+.real-hero-photo img{
+  width:100%;height:100%;object-fit:cover;object-position:center;
+  filter:saturate(.72) contrast(.98) brightness(.55);
+  transform:scale(1.03);
+}
+.real-hero-photo::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(90deg,rgba(15,15,15,.88) 0%,rgba(15,15,15,.62) 43%,rgba(15,15,15,.14) 76%,rgba(15,15,15,.32) 100%);
+}
+.hero-grid{position:relative;z-index:2}
+.hero .tooth-wrap{opacity:.34;mix-blend-mode:screen}
+.media-story{background:#f7f3ec;padding:clamp(90px,12vw,170px) clamp(22px,6vw,92px)}
+.media-head{display:grid;grid-template-columns:.7fr 1.3fr;gap:7vw;margin-bottom:70px}
+.media-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:18px}
+.media-card{position:relative;overflow:hidden;background:#e9e2d8;min-height:620px}
+.media-card img{width:100%;height:100%;object-fit:cover;transition:transform 1s var(--ease)}
+.media-card:hover img{transform:scale(1.025)}
+.media-card--stack{display:grid;grid-template-rows:1fr 1fr;gap:18px;background:none}
+.media-card--small{min-height:300px}
+.media-label{position:absolute;left:20px;bottom:20px;background:rgba(248,245,239,.9);backdrop-filter:blur(12px);padding:10px 14px;border-radius:999px;font-size:11px;letter-spacing:.08em;text-transform:uppercase}
+.reels{background:#181818;color:#f5f1e9;padding:clamp(90px,12vw,160px) clamp(22px,6vw,92px)}
+.reels-head{display:flex;justify-content:space-between;gap:40px;align-items:end;margin-bottom:55px}
+.reels-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.reel-slot{aspect-ratio:9/16;border:1px solid rgba(255,255,255,.16);border-radius:22px;position:relative;overflow:hidden;background:linear-gradient(145deg,#252525,#111);display:grid;place-items:center}
+.reel-slot::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 35%,rgba(205,170,130,.14),transparent 38%)}
+.reel-inner{position:relative;text-align:center;padding:25px}
+.play{width:58px;height:58px;border:1px solid rgba(255,255,255,.45);border-radius:50%;display:grid;place-items:center;margin:0 auto 18px;font-size:18px}
+.reel-inner strong{display:block;font-family:"Playfair Display",serif;font-size:25px;font-weight:500;margin-bottom:8px}
+.reel-inner span{font-size:12px;opacity:.55}
+.logo-strip{display:flex;align-items:center;justify-content:center;padding:70px 24px;background:#f5e5d2}
+.logo-strip img{width:min(580px,82vw);mix-blend-mode:multiply}
+@media(max-width:860px){
+ .real-hero-photo img{object-position:64% center}
+ .real-hero-photo::after{background:linear-gradient(180deg,rgba(15,15,15,.42),rgba(15,15,15,.88) 72%)}
+ .media-head,.media-grid{grid-template-columns:1fr}
+ .media-card{min-height:500px}
+ .reels-head{display:block}
+ .reels-grid{grid-template-columns:1fr;max-width:420px;margin:auto}
+ .hero .tooth-wrap{display:none}
+}
+
+</style>
+</head>
+<body>
+<div class="progress"><i id="progress"></i></div>
+<header class="nav">
+  <a class="brand" href="#inicio">Dental Legacy CR</a>
+  <nav class="navlinks" aria-label="Navegación principal">
+    <a href="#servicios">Servicios</a>
+    <a href="#ubicacion">Ubicación</a>
+    <a class="pill" href="tel:+50687855335">Llamar <span class="arr">↗</span></a>
+  </nav>
+</header>
+
+<main>
+<section class="hero" id="inicio">
+  <div class="real-hero-photo" aria-hidden="true"><img src="assets/dental-legacy-equipo.jpeg" alt=""></div>
+  <div class="hero-grid">
+    <div class="hero-copy">
+      <div class="kicker">San Vicente · Moravia · Costa Rica</div>
+      <h1>Implant &<br><em>Cosmetic Center.</em></h1>
+      <p>Odontología, implantes y estética con una identidad enfocada en resultados naturales, funcionalidad y confianza.</p>
+      <div class="actions">
+        <a class="cta primary" href="tel:+50687855335">Agendar por teléfono <span>↗</span></a>
+        <a class="cta" href="#servicios">Explorar servicios <span>↓</span></a>
+      </div>
+    </div>
+
+    <div class="tooth-wrap" aria-hidden="true">
+      <div class="ring"></div>
+      <div class="tooth">
+        <svg viewBox="0 0 360 480">
+          <path d="M179 33c-46-34-118-16-143 38-25 55 10 107 33 150 23 42 25 95 35 143 8 39 20 84 45 83 20-1 17-68 31-97 8-17 29-17 37 0 14 29 11 96 31 97 25 1 37-44 45-83 10-48 12-101 35-143 23-43 58-95 33-150-25-54-97-72-143-38-13 10-26 18-39 18s-26-8-40-18z"/>
+          <path d="M116 61c23 19 42 27 63 27 22 0 43-8 66-27"/>
+          <path d="M124 133c30 11 78 11 109 0"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-note">Scroll para descubrir</div>
+</section>
+
+<section class="story" id="experiencia">
+  <div class="story-sticky">
+    <div class="story-bg"></div>
+    <div class="story-tooth" aria-hidden="true">
+      <svg viewBox="0 0 360 480">
+        <path d="M179 33c-46-34-118-16-143 38-25 55 10 107 33 150 23 42 25 95 35 143 8 39 20 84 45 83 20-1 17-68 31-97 8-17 29-17 37 0 14 29 11 96 31 97 25 1 37-44 45-83 10-48 12-101 35-143 23-43 58-95 33-150-25-54-97-72-143-38-13 10-26 18-39 18s-26-8-40-18z"/>
+      </svg>
+    </div>
+
+    <div class="scene scene-1">
+      <div class="copy">
+        <div class="num">01 · Confianza</div>
+        <h2>Primero,<br>escuchamos.</h2>
+        <p>Una buena experiencia dental comienza entendiendo lo que necesitas y explicando con claridad el siguiente paso.</p>
+      </div>
+    </div>
+
+    <div class="scene scene-2">
+      <div class="copy">
+        <div class="num">02 · Precisión</div>
+        <h2>Cada detalle<br>importa.</h2>
+        <p>El tratamiento adecuado nace de una valoración profesional y de decisiones clínicas bien fundamentadas.</p>
+      </div>
+    </div>
+
+    <div class="scene scene-3">
+      <div class="copy">
+        <div class="num">03 · Continuidad</div>
+        <h2>Una sonrisa<br>que permanece.</h2>
+        <p>De la atención dental a soluciones especializadas como ortodoncia e implantes, la meta es construir salud y confianza a largo plazo.</p>
+      </div>
+    </div>
+
+    <div class="chapter" aria-hidden="true">
+      <span><i></i></span><span><i></i></span><span><i></i></span>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="intro-grid reveal">
+    <div><span class="eyebrow">Dental Legacy CR</span></div>
+    <div>
+      <h2 class="big">Odontología pensada para sentirse simple.</h2>
+      <p class="lead">Menos fricción, más claridad. Una experiencia donde información, tratamiento y seguimiento forman parte del mismo recorrido.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section services" id="servicios">
+  <div class="intro-grid reveal" style="margin-bottom:70px">
+    <div><span class="eyebrow">Servicios destacados</span></div>
+    <div><h2 class="big">Cuidado dental que acompaña cada etapa.</h2></div>
+  </div>
+
+  <div class="service-row reveal">
+    <div class="index">01</div>
+    <h3>Atención odontológica</h3>
+    <p>Valoración profesional y atención clínica en un mismo lugar.</p>
+    <div class="plus">+</div>
+  </div>
+  <div class="service-row reveal">
+    <div class="index">02</div>
+    <h3>Implantes dentales</h3>
+    <p>Soluciones orientadas a recuperar función, estabilidad y confianza.</p>
+    <div class="plus">+</div>
+  </div>
+  <div class="service-row reveal">
+    <div class="index">03</div>
+    <h3>Ortodoncia</h3>
+    <p>Evaluación y tratamiento especializado para mejorar alineación y función.</p>
+    <div class="plus">+</div>
+  </div>
+</section>
+
+
+<section class="logo-strip reveal" aria-label="Identidad de Dental Legacy">
+  <img src="assets/dental-legacy-logo.png" alt="Dental Legacy — Implant & Cosmetic Center">
+</section>
+
+<section class="media-story" id="galeria">
+  <div class="media-head reveal">
+    <div><span class="eyebrow">Implant & Cosmetic Center</span></div>
+    <div>
+      <h2 class="big">Estética natural.<br>Función recuperada.</h2>
+      <p class="lead">Integramos el contenido real de Dental Legacy dentro de una narrativa editorial, para explicar los implantes de forma visual sin convertir la página en un catálogo.</p>
+    </div>
+  </div>
+  <div class="media-grid">
+    <figure class="media-card reveal">
+      <img src="assets/implantes-estetica-natural.png" alt="Información de Dental Legacy sobre estética natural en implantes dentales">
+      <figcaption class="media-label">Estética natural · Implantes</figcaption>
+    </figure>
+    <div class="media-card--stack">
+      <figure class="media-card media-card--small reveal">
+        <img src="assets/implantes-funcionalidad.jpeg" alt="Información de Dental Legacy sobre funcionalidad de implantes dentales">
+        <figcaption class="media-label">Funcionalidad mejorada</figcaption>
+      </figure>
+      <figure class="media-card media-card--small reveal">
+        <img src="assets/dental-legacy-equipo.jpeg" alt="Equipo de Dental Legacy en la clínica">
+        <figcaption class="media-label">Dental Legacy · Moravia</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section class="reels" id="reels">
+  <div class="reels-head reveal">
+    <div>
+      <span class="eyebrow" style="color:#cbb8a1">Experiencias en movimiento</span>
+      <h2 class="big" style="margin-top:18px">Reels preparados<br>para entrar al recorrido.</h2>
+    </div>
+    <p style="max-width:440px;line-height:1.7;opacity:.62">La arquitectura ya reserva espacios 9:16 para videos reales. Al añadirlos, pueden reproducirse en silencio, abrirse con controles o convertirse en escenas controladas por scroll.</p>
+  </div>
+  <div class="reels-grid">
+    <article class="reel-slot reveal" data-reel-slot="1"><div class="reel-inner"><div class="play">▶</div><strong>Reel 01</strong><span>Preparado para video vertical</span></div></article>
+    <article class="reel-slot reveal" data-reel-slot="2"><div class="reel-inner"><div class="play">▶</div><strong>Reel 02</strong><span>Preparado para tratamiento / proceso</span></div></article>
+    <article class="reel-slot reveal" data-reel-slot="3"><div class="reel-inner"><div class="play">▶</div><strong>Reel 03</strong><span>Preparado para clínica / experiencia</span></div></article>
+  </div>
+</section>
+
+<section class="proof">
+  <div class="proof-grid">
+    <div class="reveal">
+      <span class="eyebrow" style="color:#cbb8a1">Confianza local</span>
+      <div class="rating">
+        <strong>4.6</strong>
+        <div class="rating-meta">
+          <div class="stars">★★★★★</div>
+          <div class="muted">7 opiniones en Google</div>
+        </div>
+      </div>
+    </div>
+    <div class="quote reveal">Una presencia local, una experiencia enfocada en el paciente y una atención que empieza antes de entrar al consultorio.</div>
+  </div>
+</section>
+
+<section class="location" id="ubicacion">
+  <div class="map-art" aria-hidden="true"><div class="pin"></div></div>
+  <div class="location-copy">
+    <span class="eyebrow">Encuéntranos</span>
+    <h2>San Vicente,<br>Moravia.</h2>
+    <div class="info">
+      <div class="info-item"><span>Dirección</span><strong>Centro Comercial MC, San Vicente, Coragua, San José</strong></div>
+      <div class="info-item"><span>Horario</span><strong>Lunes a viernes · 9:00 a.m. – 6:00 p.m.</strong></div>
+      <div class="info-item"><span>Teléfono</span><strong>8785 5335</strong></div>
+    </div>
+    <div class="actions">
+      <a class="pill darkpill" href="https://www.google.com/maps/search/?api=1&query=Dental+Legacy+CR+San+Vicente+Moravia+Costa+Rica" target="_blank" rel="noopener">Cómo llegar <span class="arr">↗</span></a>
+      <a class="pill" href="tel:+50687855335">Llamar <span class="arr">↗</span></a>
+    </div>
+  </div>
+</section>
+
+<section class="footer-cta">
+  <div class="reveal">
+    <span class="eyebrow">Tu siguiente visita</span>
+    <h2>Empieza con<br>una llamada.</h2>
+    <p>Habla directamente con Dental Legacy CR para consultar disponibilidad y coordinar tu atención.</p>
+    <a class="pill darkpill" href="tel:+50687855335">8785 5335 <span class="arr">↗</span></a>
+  </div>
+</section>
+</main>
+
+<footer class="footer">
+  <span>© 2026 Dental Legacy CR</span>
+  <span>San Vicente de Moravia · San José · Costa Rica</span>
+</footer>
+
+<script>
+const progress = document.getElementById('progress');
+const story = document.querySelector('.story');
+const sticky = document.querySelector('.story-sticky');
+const tooth = document.querySelector('.story-tooth');
+const scenes = [...document.querySelectorAll('.scene .copy')];
+const chapterBars = [...document.querySelectorAll('.chapter i')];
+
+function clamp(n,a,b){return Math.max(a,Math.min(b,n))}
+function lerp(a,b,t){return a+(b-a)*t}
+
+function render(){
+  const doc = document.documentElement;
+  const maxScroll = doc.scrollHeight - innerHeight;
+  progress.style.width = (scrollY / maxScroll * 100) + '%';
+
+  const rect = story.getBoundingClientRect();
+  const total = story.offsetHeight - innerHeight;
+  const p = clamp((-rect.top) / total, 0, 1);
+
+  const scale = lerp(.82, 1.38, p);
+  const rot = lerp(-5, 7, p);
+  const x = Math.sin(p * Math.PI * 2) * Math.min(innerWidth*.12, 130);
+  tooth.style.transform = `translate(calc(-50% + ${x}px), -50%) scale(${scale}) rotate(${rot}deg)`;
+  tooth.style.opacity = .32 + .68 * Math.sin(Math.PI * Math.min(p*1.15,1));
+
+  scenes.forEach((el,i)=>{
+    const center = i/2;
+    const d = Math.abs(p-center);
+    const visible = clamp(1 - d*4.3, 0, 1);
+    el.style.opacity = visible;
+    el.style.transform = `translateY(${(1-visible)*38}px)`;
+  });
+  chapterBars.forEach((bar,i)=>{
+    const segStart = i/3, segEnd=(i+1)/3;
+    const fill = clamp((p-segStart)/(segEnd-segStart),0,1);
+    bar.style.height = (fill*100)+'%';
+  });
+  requestAnimationFrame(()=>{});
+}
+addEventListener('scroll',render,{passive:true});
+addEventListener('resize',render);
+render();
+
+const io = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')})
+},{threshold:.16});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
