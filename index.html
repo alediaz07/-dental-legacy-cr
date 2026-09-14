@@ -249,6 +249,7 @@ img{max-width:100%;display:block}
 .reels-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 .reel-slot{aspect-ratio:9/16;border:1px solid rgba(255,255,255,.16);border-radius:22px;position:relative;overflow:hidden;background:linear-gradient(145deg,#252525,#111);display:grid;place-items:center}
 .reel-slot::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 35%,rgba(205,170,130,.14),transparent 38%)}
+.reel-slot video{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:cover}
 .reel-inner{position:relative;text-align:center;padding:25px}
 .play{width:58px;height:58px;border:1px solid rgba(255,255,255,.45);border-radius:50%;display:grid;place-items:center;margin:0 auto 18px;font-size:18px}
 .reel-inner strong{display:block;font-family:"Playfair Display",serif;font-size:25px;font-weight:500;margin-bottom:8px}
@@ -421,9 +422,9 @@ img{max-width:100%;display:block}
     <p style="max-width:440px;line-height:1.7;opacity:.62">La arquitectura ya reserva espacios 9:16 para videos reales. Al añadirlos, pueden reproducirse en silencio, abrirse con controles o convertirse en escenas controladas por scroll.</p>
   </div>
   <div class="reels-grid">
-    <article class="reel-slot reveal" data-reel-slot="1"><div class="reel-inner"><div class="play">▶</div><strong>Reel 01</strong><span>Preparado para video vertical</span></div></article>
-    <article class="reel-slot reveal" data-reel-slot="2"><div class="reel-inner"><div class="play">▶</div><strong>Reel 02</strong><span>Preparado para tratamiento / proceso</span></div></article>
-    <article class="reel-slot reveal" data-reel-slot="3"><div class="reel-inner"><div class="play">▶</div><strong>Reel 03</strong><span>Preparado para clínica / experiencia</span></div></article>
+    <article class="reel-slot reveal" data-reel-slot="1"><video src="assets/reel-01.mp4" autoplay muted loop playsinline preload="metadata"></video><div class="reel-inner"><div class="play">▶</div><strong>Reel 01</strong><span>Preparado para video vertical</span></div></article>
+    <article class="reel-slot reveal" data-reel-slot="2"><video src="assets/reel-02.mp4" autoplay muted loop playsinline preload="metadata"></video><div class="reel-inner"><div class="play">▶</div><strong>Reel 02</strong><span>Preparado para tratamiento / proceso</span></div></article>
+    <article class="reel-slot reveal" data-reel-slot="3"><video src="assets/reel-03.mp4" autoplay muted loop playsinline preload="metadata"></video><div class="reel-inner"><div class="play">▶</div><strong>Reel 03</strong><span>Preparado para clínica / experiencia</span></div></article>
   </div>
 </section>
 
