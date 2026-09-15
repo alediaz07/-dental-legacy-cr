@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://alediaz07.github.io/-dental-legacy-cr/sitemap.xml
