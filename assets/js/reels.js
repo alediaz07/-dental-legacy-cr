@@ -30,7 +30,7 @@
       const next=visible.filter(s=>!s.userPaused).sort((a,b)=>((ratios.get(b.card)||0)+(b.card.classList.contains('reel-featured')?.1:0))-((ratios.get(a.card)||0)+(a.card.classList.contains('reel-featured')?.1:0)))[0];
       chosen=next||null;if(next)start(next);
     }
-    const nearby=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){const s=states.find(s=>s.card===e.target);load(s);nearby.unobserve(e.target);}}),{rootMargin:'250px 0px'});
+    const nearby=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting&&!navigator.connection?.saveData&&!reduced.matches){const s=states.find(s=>s.card===e.target);load(s);nearby.unobserve(e.target);}}),{rootMargin:'250px 0px'});
     const visibility=new IntersectionObserver(entries=>{entries.forEach(e=>ratios.set(e.target,e.intersectionRatio));choose();},{threshold:[0,.2,.35,.55,.8,1]});
     cards.forEach(c=>{nearby.observe(c);visibility.observe(c);});
     document.addEventListener('visibilitychange',()=>{if(document.hidden)states.forEach(s=>s.video.pause());else choose();});

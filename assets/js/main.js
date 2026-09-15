@@ -20,7 +20,7 @@
   addEventListener('scroll',()=>{if(!queued){queued=true;requestAnimationFrame(update);}},{passive:true});
   addEventListener('resize',update);update();
   const booking=document.querySelector('.mobile-booking'),contact=document.querySelector('#contacto');
-  if(booking&&contact)new IntersectionObserver(entries=>{booking.classList.toggle('is-hidden',entries[0].isIntersecting);},{threshold:.1}).observe(contact);
+  if(booking&&contact)new IntersectionObserver(entries=>{booking.classList.toggle('is-hidden',entries[0].isIntersecting);booking.inert=entries[0].isIntersecting;},{threshold:.1}).observe(contact);
   // Native details keep the service index usable without JavaScript.
   document.querySelectorAll('.service-item').forEach(item=>item.addEventListener('toggle',()=>{if(item.open)document.querySelectorAll('.service-item').forEach(other=>{if(other!==item)other.open=false;});}));
 })();

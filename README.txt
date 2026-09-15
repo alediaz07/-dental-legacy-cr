@@ -22,7 +22,11 @@ Sin GSAP o con prefers-reduced-motion, el contenido se presenta en flujo normal 
 CONTENIDO
 Teléfono confirmado: +506 8785 5335.
 Dirección: Centro Comercial MC, Coragua, San Vicente de Moravia, San José, Costa Rica.
-No se publican horarios, ratings, número de reseñas, profesionales ni servicios no respaldados por los datos y materiales del cliente.
+Horario confirmado: lunes a viernes, 9:00 a. m. – 6:00 p. m.; sábados y domingos cerrado.
+Servicios confirmados: implantes, blanqueamiento, valoración dental y turismo médico.
+No se publican ratings, reseñas, profesionales ni servicios sin respaldo.
+WhatsApp primario: https://wa.me/50687855335.
+Resultados y testimonios: consultar CONTENT.md para sustituir espacios pendientes con material real.
 Implantes y blanqueamiento están documentados en los videos proporcionados.
 El mapa realiza una búsqueda por el nombre y dirección; no se inventan coordenadas.
 

@@ -20,8 +20,8 @@
     gsap.registerPlugin(ScrollTrigger);
     ScrollTrigger.config({ignoreMobileResize:true});
     media = gsap.matchMedia();
-    media.add({small:'(max-width:600px)',large:'(min-width:601px)',reduced:'(prefers-reduced-motion:reduce)'}, ctx => {
-      if (ctx.conditions.reduced) { document.documentElement.classList.remove('enhanced'); return; }
+    media.add({small:'(max-width:600px)',large:'(min-width:601px)',reduced:'(prefers-reduced-motion:reduce)',short:'(max-height:550px)'}, ctx => {
+      if (ctx.conditions.reduced || ctx.conditions.short) { document.documentElement.classList.remove('enhanced'); return; }
       const small = ctx.conditions.small;
       document.documentElement.classList.add('enhanced');
       const stage = document.querySelector('.journey'), object = document.querySelector('.brand-object');
