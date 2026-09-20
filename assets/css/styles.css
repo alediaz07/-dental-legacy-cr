@@ -63,3 +63,23 @@
 .reel-sound>span::before{content:"";position:absolute;left:0;top:3px;width:6px;height:7px;background:currentColor;clip-path:polygon(0 25%,45% 25%,100% 0,100% 100%,45% 75%,0 75%)}
 .reel-sound>span::after{content:"";position:absolute;left:9px;top:1px;width:5px;height:10px;border-right:1.5px solid currentColor;border-radius:0 100% 100% 0;transform:rotate(0deg)}
 .reel-sound[aria-pressed="false"]>span::after{left:7px;top:5px;width:12px;height:1px;border:0;border-top:1.5px solid currentColor;transform:rotate(-45deg);border-radius:0}
+.service-index{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;border-top:0}
+.service-item{border:1px solid var(--line);border-radius:4px;background:rgba(246,244,241,.55);overflow:hidden;transition:background .3s,border-color .3s}
+.service-item:hover{background:rgba(246,244,241,.82);border-color:var(--accent)}
+.service-item summary{position:relative;display:flex;flex-direction:column;align-items:flex-start;min-height:260px;padding:28px;gap:0}
+.service-item summary:hover{color:inherit}
+.service-number{font-size:12px;color:var(--accent)}
+.service-item h3{margin-top:42px;max-width:230px;font-size:clamp(29px,3vw,45px);line-height:1.12}
+.service-short{margin-top:auto;font-size:13px;color:var(--muted)}
+.service-sign{position:absolute;top:24px;right:24px;text-align:center}
+.service-content{padding:0 28px 28px;display:block}
+@media(max-width:900px){.service-index{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.service-index{grid-template-columns:1fr;gap:14px}.service-item summary{min-height:220px;padding:24px}.service-item h3{margin-top:34px;font-size:clamp(28px,8.5vw,36px)}.service-sign{top:20px;right:20px}.service-content{padding:0 24px 24px}}
+
+/* Compact footer */
+.site-footer{grid-template-columns:auto 1fr;align-items:center;gap:40px;padding-top:24px;padding-bottom:24px}
+.footer-brand{max-width:220px}
+.footer-brand img{width:100%;height:auto}
+.footer-info{grid-template-columns:1.2fr .8fr;gap:10px 30px;align-items:center;padding-bottom:0;font-size:12px;line-height:1.5}
+@media(max-width:900px){.site-footer{grid-template-columns:180px 1fr;gap:28px;padding-top:22px;padding-bottom:22px}.footer-brand{max-width:180px}}
+@media(max-width:600px){.site-footer{grid-template-columns:1fr;gap:16px;padding-top:18px;padding-bottom:18px}.footer-brand{max-width:180px;margin:0}.footer-info{grid-template-columns:1fr 1fr;gap:8px 16px;padding-top:0;font-size:12px;line-height:1.5}}
