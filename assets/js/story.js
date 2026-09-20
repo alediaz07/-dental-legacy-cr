@@ -18,7 +18,7 @@
       const video = document.getElementById('implant-story-video');
       const scenes = [...document.querySelectorAll('.scene')];
       const baseScale = () => small ? Math.min(innerHeight*.00059,.56) : Math.min(innerHeight/875,1.05);
-      gsap.set(object,{xPercent:-50,yPercent:-50,x:0,y:0,left:small?'78%':'73%',top:small?'60%':'49%',scale:1,rotation:-7,opacity:small?.38:1});
+      gsap.set(object,{xPercent:-50,yPercent:-50,x:0,y:0,left:small?'78%':'73%',top:small?'60%':'54%',scale:1,rotation:-7,opacity:small?.38:1});
       gsap.set('.implant-video-world',{xPercent:-50,yPercent:-50,left:small?'55%':'69%',top:small?'64%':'54%',autoAlpha:0});
       gsap.set('.function-word',{opacity:.15,y:12});
       const show = (selector, at, duration=.07) => timeline.fromTo(selector,{autoAlpha:0,y:small?15:30},{autoAlpha:1,y:0,duration},at);
@@ -49,7 +49,7 @@
       // The first scene holds before the camera begins its continuous move.
       timeline.to({}, {duration:.09},0);
       hide('.scene-hero',.09,.08);
-      timeline.to(object,{left:small?'39%':'28%',top:small?'32%':'49%',scale:small?1.04:1.18,rotation:5,opacity:small?.72:.8,duration:.17},.08);
+      timeline.to(object,{left:small?'39%':'28%',top:small?'32%':'52%',scale:small?1.04:1.18,rotation:5,opacity:small?.72:.8,duration:.17},.08);
       timeline.to('.object-ground',{left:small?'39%':'28%',top:small?'47%':'87%',opacity:.5,duration:.17},.08);
       show('.scene-beyond',.16);hide('.scene-beyond',.30,.07);
       timeline.to(object,{left:small?'55%':'68%',top:small?'67%':'50%',scale:small?1.07:1.18,rotation:-7,duration:.16},.29);
@@ -65,12 +65,12 @@
       show('.scene-function',.63,.065);
       timeline.to('.function-word',{opacity:1,y:0,stagger:.035,duration:.055},.65);
       timeline.to(object,{rotation:4,duration:.15},.63);
-      hide('.scene-function',.80,.065);
+      hide('.scene-function',.72,.05);
       timeline.to('.implant-video-world',{left:small?'58%':'69%',top:small?'61%':'54%',scale:()=>baseScale()*(small?1.08:1),duration:.15},.81);
       timeline.to(object,{left:small?'47%':'27%',top:small?'29%':'48%',scale:small?.8:1.15,rotation:-9,duration:.16},.81);
-      show('.scene-natural',.76,.06);
-      timeline.to('.object-ground',{left:small?'47%':'29%',top:small?'45%':'78%',duration:.15},.83);
+      show('.scene-natural',.72,.06);
       timeline.to('.implant-video-world, .scene-natural',{autoAlpha:0,duration:.04,ease:'power2.inOut'},.92);
+      timeline.to(journeyStage,{backgroundColor:'var(--paper)',duration:.08,ease:'power2.inOut'},.88);
       // Animate children during the intro; master scene transforms stay scroll-owned.
       if (scrollY < 50) {
         gsap.from('.hero-eyebrow',{opacity:0,y:12,duration:.8,delay:.12});

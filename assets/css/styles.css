@@ -29,3 +29,14 @@
 #implant-story-video{-webkit-mask-image:linear-gradient(to right,transparent 0%,black 10%,black 90%,transparent 100%),linear-gradient(to bottom,transparent 0%,black 8%,black 92%,transparent 100%);-webkit-mask-composite:source-in;mask-image:linear-gradient(to right,transparent 0%,black 10%,black 90%,transparent 100%),linear-gradient(to bottom,transparent 0%,black 8%,black 92%,transparent 100%);mask-composite:intersect}
 .implant-video-world{opacity:1;mix-blend-mode:normal}
 #implant-story-video{opacity:1;mix-blend-mode:normal;filter:none}
+.scene-beyond{justify-content:flex-end}
+.scene-natural{justify-content:flex-start}
+.scene-beyond .scene-copy{width:44%}
+.scene-natural .scene-copy{width:46%}
+@media(max-width:600px){.scene-natural .scene-copy{width:100%}}
+.enhanced .journey-stage{height:100vh;min-height:100vh;height:100dvh;min-height:100dvh}
+.stage-art{height:100vh;height:100dvh}
+.enhanced .scene{inset:0;height:100%}
+.site-header{height:72px}
+@media(max-width:900px){.site-header{height:68px}}
+@media(max-width:600px){.site-header{height:62px}}
