@@ -30,7 +30,7 @@
           document.getElementById('chapter-current').textContent=String(chapter+1).padStart(2,'0');
           scenes.forEach((scene,i)=>{scene.inert=i!==chapter;});
           if (video && Number.isFinite(video.duration) && video.duration > 0) {
-            const localProgress = gsap.utils.clamp(0,1,(self.progress-.35)/(.82-.35));
+            const localProgress = gsap.utils.clamp(0,1,(self.progress-.35)/(.92-.35));
             const targetTime = localProgress * Math.max(0,video.duration-.08);
             if (Math.abs(video.currentTime-targetTime) > .01) {
               if (videoFrame !== null) cancelAnimationFrame(videoFrame);
@@ -70,8 +70,7 @@
       timeline.to(object,{left:small?'47%':'27%',top:small?'29%':'48%',scale:small?.8:1.15,rotation:-9,duration:.16},.81);
       show('.scene-natural',.76,.06);
       timeline.to('.object-ground',{left:small?'47%':'29%',top:small?'45%':'78%',duration:.15},.83);
-      timeline.to('.implant-video-world, .scene-natural',{autoAlpha:0,duration:.05,ease:'power2.inOut'},.94);
-      timeline.to({}, {duration:.07},.93);
+      timeline.to('.implant-video-world, .scene-natural',{autoAlpha:0,duration:.04,ease:'power2.inOut'},.92);
       // Animate children during the intro; master scene transforms stay scroll-owned.
       if (scrollY < 50) {
         gsap.from('.hero-eyebrow',{opacity:0,y:12,duration:.8,delay:.12});
