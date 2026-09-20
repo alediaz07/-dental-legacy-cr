@@ -27,7 +27,6 @@
         id:'dental-journey',trigger:stage,start:'top top',end:'bottom bottom',scrub:small?.55:.9,invalidateOnRefresh:true,
         onUpdate(self){
           const chapter = self.progress<.16?0:self.progress<.36?1:self.progress<.61?2:self.progress<.83?3:4;
-          document.getElementById('chapter-current').textContent=String(chapter+1).padStart(2,'0');
           scenes.forEach((scene,i)=>{scene.inert=i!==chapter;});
           if (video && Number.isFinite(video.duration) && video.duration > 0) {
             const localProgress = gsap.utils.clamp(0,1,(self.progress-.35)/(.92-.35));
@@ -49,10 +48,10 @@
       // The first scene holds before the camera begins its continuous move.
       timeline.to({}, {duration:.09},0);
       hide('.scene-hero',.09,.08);
-      timeline.to(object,{left:small?'39%':'28%',top:small?'32%':'52%',scale:small?1.04:1.18,rotation:5,opacity:small?.72:.8,duration:.17},.08);
+      timeline.to(object,{left:small?'39%':'28%',top:small?'32%':'52%',scale:1,rotation:5,opacity:small?.72:.8,duration:.17},.08);
       timeline.to('.object-ground',{left:small?'39%':'28%',top:small?'47%':'87%',opacity:.5,duration:.17},.08);
       show('.scene-beyond',.16);hide('.scene-beyond',.30,.07);
-      timeline.to(object,{left:small?'55%':'68%',top:small?'67%':'50%',scale:small?1.07:1.18,rotation:-7,duration:.16},.29);
+      timeline.to(object,{left:small?'55%':'68%',top:small?'67%':'50%',scale:1,rotation:-7,duration:.16},.29);
       timeline.to('.object-ground',{left:small?'55%':'68%',top:small?'86%':'88%',duration:.16},.29);
       timeline.to(object,{autoAlpha:0,duration:.06,ease:'power2.inOut'},.30);
       timeline.to('.object-ground',{opacity:0,duration:.05,ease:'power2.inOut'},.30);

@@ -8,12 +8,12 @@
     const states=cards.map(card=>{
       const video=card.querySelector('video'),play=card.querySelector('.reel-play'),sound=card.querySelector('.reel-sound');
       const state={card,video,play,sound,userPaused:false};ratios.set(card,0);
-      function sync(){play.setAttribute('aria-label',`${video.paused?'Reproducir':'Pausar'}: ${card.querySelector('h3').textContent}`);play.querySelector('.play-icon').textContent=video.paused?'▶':'Ⅱ';sound.firstChild.textContent=video.muted?'Activar sonido ':'Silenciar ';sound.setAttribute('aria-pressed',String(!video.muted));card.classList.toggle('is-playing',!video.paused);}
+      function sync(){play.setAttribute('aria-label',`${video.paused?'Reproducir':'Pausar'}: ${card.querySelector('h3').textContent}`);play.classList.toggle('is-playing',!video.paused);sound.setAttribute('aria-label',video.muted?'Activar sonido':'Silenciar');sound.setAttribute('aria-pressed',String(!video.muted));card.classList.toggle('is-playing',!video.paused);}
       video.addEventListener('play',sync);video.addEventListener('pause',sync);video.addEventListener('volumechange',sync);
       video.addEventListener('ended',()=>{state.userPaused=true;sync();});
       video.addEventListener('error',()=>{card.querySelector('.video-error').hidden=false;card.classList.add('has-error');});
       play.addEventListener('click',()=>{if(video.paused){state.userPaused=false;chosen=state;start(state,true);}else{state.userPaused=true;video.pause();}});
-      sound.addEventListener('click',()=>{video.muted=!video.muted;if(!video.muted){state.userPaused=false;chosen=state;start(state,true);}sync();});
+      sound.addEventListener('click',()=>{video.muted=!video.muted;sync();});
       video.controls=false;sync();return state;
     });
     document.documentElement.classList.add('js-reels');
