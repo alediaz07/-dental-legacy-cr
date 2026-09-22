@@ -19,7 +19,6 @@
 /* Scroll driven implant film. The poster keeps the composition useful without JavaScript. */
 .implant-video-world{position:absolute;left:69%;top:54%;width:min(42vw,570px);height:auto;transform:translate(-50%,-50%);display:block;z-index:1;pointer-events:none;opacity:.94;mix-blend-mode:multiply}
 #implant-story-video{display:block;width:100%;height:auto;object-fit:contain;background:transparent;mix-blend-mode:multiply}
-.enhanced .implant-video-world{display:block}
 @media(max-width:600px){.implant-video-world{left:59%;top:63%;width:78vw;opacity:.96}.enhanced .implant-video-world{left:59%;top:63%}}
 @media(prefers-reduced-motion:reduce){.implant-video-world{left:59%;top:63%;opacity:.96}.enhanced .implant-video-world{display:block}}
 .enhanced .journey-stage{background:var(--paper)}
@@ -29,9 +28,7 @@
 #implant-story-video{-webkit-mask-image:linear-gradient(to right,transparent 0%,black 10%,black 90%,transparent 100%),linear-gradient(to bottom,transparent 0%,black 8%,black 92%,transparent 100%);-webkit-mask-composite:source-in;mask-image:linear-gradient(to right,transparent 0%,black 10%,black 90%,transparent 100%),linear-gradient(to bottom,transparent 0%,black 8%,black 92%,transparent 100%);mask-composite:intersect}
 .implant-video-world{opacity:1;mix-blend-mode:normal}
 #implant-story-video{opacity:1;mix-blend-mode:normal;filter:none}
-.scene-beyond{justify-content:flex-end}
 .scene-natural{justify-content:flex-start}
-.scene-beyond .scene-copy{width:44%}
 .scene-natural .scene-copy{width:46%}
 @media(max-width:600px){.scene-natural .scene-copy{width:100%}}
 .enhanced .journey-stage{height:100vh;min-height:100vh;height:100dvh;min-height:100dvh}
@@ -47,8 +44,6 @@
 @media(max-width:900px){.site-header{display:flex}.desktop-nav{justify-self:auto}}
 .site-header{background:rgba(246,244,241,.62);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);transition:background .4s,border-color .4s,backdrop-filter .4s}
 .site-header.scrolled{background:rgba(246,244,241,.70);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
-.hero-actions .button{background:transparent;color:var(--ink);border:1px solid var(--ink);justify-content:center;gap:0}
-.hero-actions .button:hover{background:rgba(42,34,31,.06);color:var(--ink)}
 .hero-actions .button{background:transparent;color:var(--ink);border:none;padding-left:0;padding-right:0;min-height:auto;justify-content:flex-start;gap:0;box-shadow:none}
 .hero-actions .button:hover{background:transparent;color:var(--accent);box-shadow:none}
 .editorial-reels .section-heading{grid-template-columns:1fr}
