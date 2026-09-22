@@ -53,11 +53,11 @@
       show('.scene-beyond',.16);hide('.scene-beyond',.30,.07);
       timeline.to(object,{left:small?'55%':'68%',top:small?'67%':'50%',scale:1,rotation:-7,duration:.16},.29);
       timeline.to('.object-ground',{left:small?'55%':'68%',top:small?'86%':'88%',duration:.16},.29);
-      timeline.to(object,{autoAlpha:0,duration:.06,ease:'power2.inOut'},.30);
-      timeline.to('.object-ground',{opacity:0,duration:.05,ease:'power2.inOut'},.30);
-      timeline.to(stageLight,{autoAlpha:0,duration:.12,ease:'power2.inOut'},.34);
-      timeline.to(journeyStage,{backgroundColor:'var(--implant-scene-bg)',duration:.12,ease:'power2.inOut'},.34);
-      timeline.to('.implant-video-world',{autoAlpha:1,duration:.08},.35);
+      timeline.to(object,{autoAlpha:0,duration:.14,ease:'power2.inOut'},.30);
+      timeline.to('.object-ground',{opacity:0,duration:.10,ease:'power2.inOut'},.30);
+      timeline.to(stageLight,{autoAlpha:0,duration:.18,ease:'power2.inOut'},.31);
+      timeline.to(journeyStage,{backgroundColor:'var(--implant-scene-bg)',duration:.20,ease:'power2.inOut'},.31);
+      timeline.to('.implant-video-world',{autoAlpha:1,duration:.10},.35);
       show('.scene-precision',.36,.065);
       hide('.scene-precision',.59,.055);
       timeline.to('.implant-video-world',{left:small?'59%':'69%',top:small?'63%':'54%',scale:()=>baseScale()*(small?1.08:1),duration:.12},.61);
@@ -68,14 +68,14 @@
       timeline.to('.implant-video-world',{left:small?'58%':'69%',top:small?'61%':'54%',scale:()=>baseScale()*(small?1.08:1),duration:.15},.81);
       timeline.to(object,{left:small?'47%':'27%',top:small?'29%':'48%',scale:small?.8:1.15,rotation:-9,duration:.16},.81);
       show('.scene-natural',.72,.06);
-      timeline.to('.implant-video-world, .scene-natural',{autoAlpha:0,duration:.04,ease:'power2.inOut'},.92);
-      timeline.to(journeyStage,{backgroundColor:'var(--paper)',duration:.08,ease:'power2.inOut'},.88);
+      timeline.to('.implant-video-world',{autoAlpha:0,duration:.08,ease:'power2.inOut'},.92);
+      timeline.to(journeyStage,{backgroundColor:'var(--paper)',duration:.16,ease:'power2.inOut'},.84);
       // Animate children during the intro; master scene transforms stay scroll-owned.
       if (scrollY < 50) {
         gsap.from('.hero-eyebrow',{opacity:0,y:12,duration:.8,delay:.12});
         gsap.from('.scene-hero .line>span,.scene-hero .line>em',{yPercent:115,opacity:0,duration:1.2,stagger:.12,delay:.35,ease:'power3.out'});
         gsap.from('.hero-description,.hero-actions',{opacity:0,y:15,duration:.9,stagger:.1,delay:1.05});
-        gsap.from('.brand-light',{opacity:0,duration:1.5,delay:.2});
+        gsap.from('.brand-light',{opacity:0,duration:1.5,delay:1.95});
       }
       ScrollTrigger.refresh();
       return () => {if (videoFrame !== null) cancelAnimationFrame(videoFrame);videoFrame=null;scenes.forEach(s=>{s.inert=false;});document.documentElement.classList.remove('enhanced');timeline=null;trigger=null;};
