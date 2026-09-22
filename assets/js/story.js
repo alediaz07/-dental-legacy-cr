@@ -110,7 +110,7 @@
         ? Math.min(.76,innerHeight/(innerWidth*.78*(16/9))*.70)
         : Math.min(innerHeight/875,1.05);
       gsap.set(object,{xPercent:-50,yPercent:-50,x:0,y:0,left:small?'78%':'73%',top:small?'60%':'54%',scale:1,rotation:-7,opacity:small?.38:1});
-      gsap.set('.implant-video-world',{xPercent:-50,yPercent:-50,left:small?'56%':'69%',top:small?'65%':'54%',autoAlpha:0});
+      gsap.set('.implant-video-world',{xPercent:-50,yPercent:-50,left:small?'74%':'69%',top:small?'64%':'54%',autoAlpha:0});
       gsap.set('.function-word',{opacity:.15,y:12});
       const show = (selector, at, duration=.07) => timeline.fromTo(selector,{autoAlpha:0,y:small?15:30},{autoAlpha:1,y:0,duration},at);
       const hide = (selector, at, duration=.06) => timeline.to(selector,{autoAlpha:0,y:small?-12:-25,duration},at);
@@ -124,7 +124,7 @@
         }
       }});
       trigger = timeline.scrollTrigger;
-      timeline.set('.implant-video-world',{scale:baseScale},0);
+      timeline.set('.implant-video-world',{scale:()=>baseScale()*(small?.88:1)},0);
       // The first scene holds before the camera begins its continuous move.
       timeline.to({}, {duration:.09},0);
       hide('.scene-hero',.09,.08);
@@ -140,12 +140,12 @@
       timeline.to('.implant-video-world',{autoAlpha:1,duration:.10},.35);
       show('.scene-precision',.36,.065);
       hide('.scene-precision',.59,.055);
-      timeline.to('.implant-video-world',{left:small?'57%':'69%',top:small?'66%':'54%',scale:()=>baseScale()*(small?1.05:1),duration:.12},.61);
+      timeline.to('.implant-video-world',{left:small?'71%':'69%',top:small?'64%':'54%',scale:()=>baseScale()*(small?.97:1),duration:.12},.61);
       show('.scene-function',.63,.065);
       timeline.to('.function-word',{opacity:1,y:0,stagger:.035,duration:.055},.65);
       timeline.to(object,{rotation:4,duration:.15},.63);
       hide('.scene-function',.72,.05);
-      timeline.to('.implant-video-world',{left:small?'56%':'69%',top:small?'64%':'54%',scale:()=>baseScale()*(small?1.05:1),duration:.15},.81);
+      timeline.to('.implant-video-world',{left:small?'70%':'69%',top:small?'60%':'54%',scale:()=>baseScale()*(small?.97:1),duration:.15},.81);
       timeline.to(object,{left:small?'47%':'27%',top:small?'29%':'48%',scale:small?.8:1.15,rotation:-9,duration:.16},.81);
       show('.scene-natural',.72,.06);
       timeline.to('.implant-video-world',{autoAlpha:0,duration:small?.025:.08,ease:'power2.inOut'},small?.975:.92);
