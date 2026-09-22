@@ -84,7 +84,10 @@
 .service-panel-description{max-width:440px;margin-top:7px;font-size:14px;line-height:1.6;color:var(--muted)}
 .service-panel-link{display:inline-flex;align-items:center;gap:11px;min-height:40px;margin-top:11px;font-size:14px}
 .service-panel-link>span:first-child{padding-bottom:4px;border-bottom:1px solid var(--line);transition:color .3s,border-color .3s}
-.service-panel-arrow{display:grid;place-items:center;width:32px;height:32px;border:1px solid var(--line);border-radius:50%;font-size:16px;transition:transform .3s var(--ease),background .3s,color .3s,border-color .3s}
+.service-panel-arrow{position:relative;display:grid;place-items:center;width:32px;height:32px;border:1px solid var(--line);border-radius:50%;font-size:0;transition:transform .3s var(--ease),background .3s,color .3s,border-color .3s}
+.service-panel-arrow::before,.service-panel-arrow::after{position:absolute;content:""}
+.service-panel-arrow::before{top:50%;left:50%;width:12px;height:1px;background:currentColor;transform:translate(-50%,-50%) rotate(-45deg)}
+.service-panel-arrow::after{top:8px;right:8px;width:6px;height:6px;border-top:1px solid currentColor;border-right:1px solid currentColor}
 .service-panel:hover .service-panel-link>span:first-child,.service-panel:focus-visible .service-panel-link>span:first-child{color:var(--accent);border-color:var(--accent)}
 .service-panel:hover .service-panel-arrow,.service-panel:focus-visible .service-panel-arrow{transform:translate(2px,-2px);background:var(--ink);border-color:var(--ink);color:var(--paper)}
 .service-panel-media{width:100%;height:clamp(220px,21vw,300px);min-width:0;margin:0;overflow:hidden;border-radius:3px;background:rgba(234,228,218,.5)}
