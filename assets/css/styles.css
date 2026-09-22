@@ -27,8 +27,8 @@
 /* Scroll driven implant film. The poster keeps the composition useful without JavaScript. */
 .implant-video-world{position:absolute;left:69%;top:54%;width:min(42vw,570px);height:auto;transform:translate(-50%,-50%);display:block;z-index:1;pointer-events:none;opacity:.94;mix-blend-mode:multiply}
 #implant-story-video{display:block;width:100%;height:auto;object-fit:contain;background:transparent;mix-blend-mode:multiply}
-@media(max-width:600px){.implant-video-world{left:59%;top:63%;width:78vw;opacity:.96}.enhanced .implant-video-world{left:59%;top:63%}}
-@media(prefers-reduced-motion:reduce){.implant-video-world{left:59%;top:63%;opacity:.96}.enhanced .implant-video-world{display:block}}
+@media(max-width:600px){.implant-video-world{left:56%;top:65%;width:78vw;opacity:.96}.enhanced .implant-video-world{left:56%;top:65%}}
+@media(prefers-reduced-motion:reduce){.implant-video-world{left:56%;top:65%;opacity:.96}.enhanced .implant-video-world{display:block}}
 .enhanced .journey-stage{background:var(--paper)}
 .enhanced .scene-precision,.enhanced .scene-function,.enhanced .scene-natural{background:var(--implant-scene-bg)}
 @media(max-width:600px){.enhanced .scene-precision,.enhanced .scene-function,.enhanced .scene-natural{background:transparent}}
