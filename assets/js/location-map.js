@@ -2,8 +2,8 @@
   const container = document.getElementById('legacy-map');
   if (!container || !window.maplibregl) return;
 
-  // Public location: Avenida 65 / Calle 59A, Coragua, San Vicente de Moravia.
-  const clinicCoordinates = [-84.0559, 9.9633];
+  // Dental Legacy CR, Centro Comercial MC, San Vicente de Moravia.
+  const clinicCoordinates = [-84.0474428, 9.9629681];
   const directionsUrl = 'https://www.google.com/maps/dir/?api=1&destination=Dental+Legacy+CR%2C+Av.+65+59A%2C+Coragua%2C+San+Vicente+de+Moravia%2C+Costa+Rica';
 
   const map = new maplibregl.Map({
@@ -28,6 +28,19 @@
     }
   });
 
+  const scheduleMapResize = () => {
+    window.requestAnimationFrame(() => {
+      if (map.loaded()) map.resize();
+    });
+  };
+
+  if ('ResizeObserver' in window) {
+    const mapResizeObserver = new ResizeObserver(scheduleMapResize);
+    mapResizeObserver.observe(container);
+  } else {
+    window.addEventListener('resize', scheduleMapResize, { passive: true });
+  }
+
   map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'top-right');
   map.addControl(new maplibregl.AttributionControl({
     compact: false,
@@ -35,6 +48,8 @@
   }), 'bottom-right');
 
   map.once('load', () => {
+    map.resize();
+
     const markerElement = document.createElement('button');
     markerElement.type = 'button';
     markerElement.className = 'legacy-map-marker';
