@@ -69,13 +69,14 @@
       timeline.to(object,{left:small?'47%':'27%',top:small?'29%':'48%',scale:small?.8:1.15,rotation:-9,duration:.16},.81);
       show('.scene-natural',.72,.06);
       timeline.to('.implant-video-world',{autoAlpha:0,duration:.08,ease:'power2.inOut'},.92);
+      timeline.to('.scene-natural',{autoAlpha:0,duration:.06,ease:'power2.inOut'},.94);
       timeline.to(journeyStage,{backgroundColor:'var(--paper)',duration:.16,ease:'power2.inOut'},.84);
       // Animate children during the intro; master scene transforms stay scroll-owned.
       if (scrollY < 50) {
         gsap.from('.hero-eyebrow',{opacity:0,y:12,duration:.8,delay:.12});
         gsap.from('.scene-hero .line>span,.scene-hero .line>em',{yPercent:115,opacity:0,duration:1.2,stagger:.12,delay:.35,ease:'power3.out'});
         gsap.from('.hero-description,.hero-actions',{opacity:0,y:15,duration:.9,stagger:.1,delay:1.05});
-        gsap.from('.brand-light',{opacity:0,duration:1.5,delay:1.95});
+        gsap.from('.brand-light',{opacity:0,duration:1.5,delay:1.35});
       }
       ScrollTrigger.refresh();
       return () => {if (videoFrame !== null) cancelAnimationFrame(videoFrame);videoFrame=null;scenes.forEach(s=>{s.inert=false;});document.documentElement.classList.remove('enhanced');timeline=null;trigger=null;};
