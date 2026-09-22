@@ -3,7 +3,58 @@
   'use strict';
   let media, timeline, trigger;
   let videoFrame = null;
+  let videoElement = null;
+  let videoReady = false;
+  let videoProgress = 0;
+  let videoListenersAttached = false;
+  let viewportListenersAttached = false;
   const chapterPositions = { beyond:.24, precision:.47, functionality:.72, natural:.94 };
+  function canSeekVideo() {
+    return videoElement && videoElement.readyState >= 2 && Number.isFinite(videoElement.duration) && videoElement.duration > 0;
+  }
+  function syncVideo() {
+    if (!videoReady || !canSeekVideo() || videoElement.seeking) return;
+    const targetTime = videoProgress * Math.max(0, videoElement.duration - .08);
+    if (Math.abs(videoElement.currentTime - targetTime) <= .035) return;
+    try { videoElement.currentTime = targetTime; }
+    catch { videoReady = false; }
+  }
+  function scheduleVideoSync(progress = videoProgress) {
+    videoProgress = Math.max(0, Math.min(1, progress));
+    if (!videoReady || !videoElement || videoElement.seeking || videoFrame !== null) return;
+    videoFrame = requestAnimationFrame(() => { videoFrame = null; syncVideo(); });
+  }
+  function updateVideoReadiness() {
+    const ready = Boolean(canSeekVideo());
+    if (!ready) { videoReady = false; return; }
+    if (!videoReady) {
+      videoReady = true;
+      window.ScrollTrigger?.refresh();
+      trigger?.update();
+      scheduleVideoSync();
+    }
+  }
+  function prepareVideo(video) {
+    if (!video) return;
+    videoElement = video;
+    video.muted = true;
+    video.playsInline = true;
+    if (videoListenersAttached) return;
+    videoListenersAttached = true;
+    ['loadedmetadata', 'loadeddata', 'canplay', 'canplaythrough', 'durationchange', 'progress'].forEach((eventName) => {
+      video.addEventListener(eventName, updateVideoReadiness);
+    });
+    video.addEventListener('seeked', () => { updateVideoReadiness(); scheduleVideoSync(); });
+    video.addEventListener('error', () => { videoReady = false; });
+    updateVideoReadiness();
+  }
+  function refreshStoryViewport() {
+    window.ScrollTrigger?.refresh();
+    trigger?.update();
+    updateVideoReadiness();
+    scheduleVideoSync();
+  }
+  function handleOrientationChange() { requestAnimationFrame(refreshStoryViewport); }
   function init() {
     if (!window.gsap || !window.ScrollTrigger) return;
     const { gsap, ScrollTrigger } = window;
@@ -16,6 +67,7 @@
       document.documentElement.classList.add('enhanced');
       const stage = document.querySelector('.journey'), journeyStage = document.querySelector('.journey-stage'), stageLight = document.querySelector('.stage-light'), object = document.querySelector('.brand-object');
       const video = document.getElementById('implant-story-video');
+      prepareVideo(video);
       const scenes = [...document.querySelectorAll('.scene')];
       const baseScale = () => small ? Math.min(innerHeight*.00059,.56) : Math.min(innerHeight/875,1.05);
       gsap.set(object,{xPercent:-50,yPercent:-50,x:0,y:0,left:small?'78%':'73%',top:small?'60%':'54%',scale:1,rotation:-7,opacity:small?.38:1});
@@ -28,22 +80,11 @@
         onUpdate(self){
           const chapter = self.progress<.16?0:self.progress<.36?1:self.progress<.61?2:self.progress<.83?3:4;
           scenes.forEach((scene,i)=>{scene.inert=i!==chapter;});
-          if (video && Number.isFinite(video.duration) && video.duration > 0) {
-            const localProgress = gsap.utils.clamp(0,1,(self.progress-.35)/(.92-.35));
-            const targetTime = localProgress * Math.max(0,video.duration-.08);
-            if (Math.abs(video.currentTime-targetTime) > .01) {
-              if (videoFrame !== null) cancelAnimationFrame(videoFrame);
-              videoFrame = requestAnimationFrame(() => { video.currentTime = targetTime; videoFrame = null; });
-            }
-          }
+          const localProgress = gsap.utils.clamp(0,1,(self.progress-.35)/(.92-.35));
+          scheduleVideoSync(localProgress);
         }
       }});
       trigger = timeline.scrollTrigger;
-      if (video) {
-        const refreshVideo = () => trigger?.update();
-        video.addEventListener('loadedmetadata', refreshVideo, {once:true});
-        video.addEventListener('durationchange', refreshVideo, {once:true});
-      }
       timeline.set('.implant-video-world',{scale:baseScale},0);
       // The first scene holds before the camera begins its continuous move.
       timeline.to({}, {duration:.09},0);
@@ -82,7 +123,11 @@
       return () => {if (videoFrame !== null) cancelAnimationFrame(videoFrame);videoFrame=null;scenes.forEach(s=>{s.inert=false;});document.documentElement.classList.remove('enhanced');timeline=null;trigger=null;};
     });
     document.fonts?.ready.then(()=>ScrollTrigger.refresh());
-    window.addEventListener('pageshow',()=>ScrollTrigger.refresh());
+    if (!viewportListenersAttached) {
+      window.addEventListener('pageshow', refreshStoryViewport);
+      window.addEventListener('orientationchange', handleOrientationChange, {passive:true});
+      viewportListenersAttached = true;
+    }
   }
   function goTo(chapter) {
     if (!trigger || !chapterPositions[chapter]) return false;

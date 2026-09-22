@@ -31,6 +31,7 @@
 @media(prefers-reduced-motion:reduce){.implant-video-world{left:59%;top:63%;opacity:.96}.enhanced .implant-video-world{display:block}}
 .enhanced .journey-stage{background:var(--paper)}
 .enhanced .scene-precision,.enhanced .scene-function,.enhanced .scene-natural{background:var(--implant-scene-bg)}
+@media(max-width:600px){.enhanced .scene-precision,.enhanced .scene-function,.enhanced .scene-natural{background:transparent}}
 .implant-video-world{overflow:visible;background:transparent}
 .implant-video-world::before{content:"";position:absolute;inset:-4%;background:radial-gradient(ellipse at center,var(--implant-scene-bg) 0%,var(--implant-scene-bg) 58%,transparent 82%);opacity:.55;filter:blur(10px);z-index:-1;pointer-events:none}
 #implant-story-video{-webkit-mask-image:linear-gradient(to right,transparent 0%,black 10%,black 90%,transparent 100%),linear-gradient(to bottom,transparent 0%,black 8%,black 92%,transparent 100%);-webkit-mask-composite:source-in;mask-image:linear-gradient(to right,transparent 0%,black 10%,black 90%,transparent 100%),linear-gradient(to bottom,transparent 0%,black 8%,black 92%,transparent 100%);mask-composite:intersect}
