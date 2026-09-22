@@ -7,13 +7,16 @@
   let videoReady = false;
   let videoProgress = 0;
   let videoListenersAttached = false;
+  let videoPrimeInFlight = false;
+  let videoPrimed = false;
+  let videoPrimeListenersAttached = false;
   let viewportListenersAttached = false;
   const chapterPositions = { beyond:.24, precision:.47, functionality:.72, natural:.94 };
   function canSeekVideo() {
     return videoElement && videoElement.readyState >= 2 && Number.isFinite(videoElement.duration) && videoElement.duration > 0;
   }
   function syncVideo() {
-    if (!videoReady || !canSeekVideo() || videoElement.seeking) return;
+    if (!videoReady || !canSeekVideo() || videoElement.seeking || videoPrimeInFlight) return;
     const targetTime = videoProgress * Math.max(0, videoElement.duration - .08);
     if (Math.abs(videoElement.currentTime - targetTime) <= .035) return;
     try { videoElement.currentTime = targetTime; }
@@ -21,7 +24,7 @@
   }
   function scheduleVideoSync(progress = videoProgress) {
     videoProgress = Math.max(0, Math.min(1, progress));
-    if (!videoReady || !videoElement || videoElement.seeking || videoFrame !== null) return;
+    if (!videoReady || !videoElement || videoElement.seeking || videoPrimeInFlight || videoFrame !== null) return;
     videoFrame = requestAnimationFrame(() => { videoFrame = null; syncVideo(); });
   }
   function updateVideoReadiness() {
@@ -46,7 +49,41 @@
     });
     video.addEventListener('seeked', () => { updateVideoReadiness(); scheduleVideoSync(); });
     video.addEventListener('error', () => { videoReady = false; });
+    armVideoPriming();
     updateVideoReadiness();
+  }
+  function removeVideoPrimeListeners() {
+    document.removeEventListener('touchstart', primeVideo, {passive:true});
+    document.removeEventListener('pointerdown', primeVideo, {passive:true});
+    videoPrimeListenersAttached = false;
+  }
+  function primeVideo() {
+    if (!videoElement || videoPrimed || videoPrimeInFlight) return;
+    videoElement.muted = true;
+    videoElement.playsInline = true;
+    videoPrimeInFlight = true;
+    let playPromise;
+    try { playPromise = videoElement.play(); }
+    catch { videoPrimeInFlight = false; return; }
+    if (!playPromise || typeof playPromise.then !== 'function') {
+      videoElement.pause();
+      videoPrimeInFlight = false;
+      return;
+    }
+    playPromise.then(() => {
+      videoElement.pause();
+      videoPrimed = true;
+      videoPrimeInFlight = false;
+      removeVideoPrimeListeners();
+      updateVideoReadiness();
+      scheduleVideoSync();
+    }).catch(() => { videoPrimeInFlight = false; });
+  }
+  function armVideoPriming() {
+    if (videoPrimeListenersAttached || videoPrimed) return;
+    videoPrimeListenersAttached = true;
+    document.addEventListener('touchstart', primeVideo, {passive:true});
+    document.addEventListener('pointerdown', primeVideo, {passive:true});
   }
   function refreshStoryViewport() {
     window.ScrollTrigger?.refresh();
@@ -69,7 +106,9 @@
       const video = document.getElementById('implant-story-video');
       prepareVideo(video);
       const scenes = [...document.querySelectorAll('.scene')];
-      const baseScale = () => small ? Math.min(innerHeight*.00059,.56) : Math.min(innerHeight/875,1.05);
+      const baseScale = () => small
+        ? Math.min(.84,innerHeight/(innerWidth*.78*(16/9))*.72)
+        : Math.min(innerHeight/875,1.05);
       gsap.set(object,{xPercent:-50,yPercent:-50,x:0,y:0,left:small?'78%':'73%',top:small?'60%':'54%',scale:1,rotation:-7,opacity:small?.38:1});
       gsap.set('.implant-video-world',{xPercent:-50,yPercent:-50,left:small?'55%':'69%',top:small?'64%':'54%',autoAlpha:0});
       gsap.set('.function-word',{opacity:.15,y:12});
@@ -109,8 +148,8 @@
       timeline.to('.implant-video-world',{left:small?'58%':'69%',top:small?'61%':'54%',scale:()=>baseScale()*(small?1.08:1),duration:.15},.81);
       timeline.to(object,{left:small?'47%':'27%',top:small?'29%':'48%',scale:small?.8:1.15,rotation:-9,duration:.16},.81);
       show('.scene-natural',.72,.06);
-      timeline.to('.implant-video-world',{autoAlpha:0,duration:.08,ease:'power2.inOut'},.92);
-      timeline.to('.scene-natural',{autoAlpha:0,duration:.06,ease:'power2.inOut'},.94);
+      timeline.to('.implant-video-world',{autoAlpha:0,duration:small?.025:.08,ease:'power2.inOut'},small?.975:.92);
+      timeline.to('.scene-natural',{autoAlpha:0,duration:small?.015:.06,ease:'power2.inOut'},small?.985:.94);
       timeline.to(journeyStage,{backgroundColor:'var(--paper)',duration:.16,ease:'power2.inOut'},.84);
       // Animate children during the intro; master scene transforms stay scroll-owned.
       if (scrollY < 50) {
