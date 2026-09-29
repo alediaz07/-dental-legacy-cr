@@ -110,7 +110,7 @@
         ? Math.min(.76,innerHeight/(innerWidth*.78*(16/9))*.70)
         : Math.min(innerHeight/875,1.05);
       gsap.set(object,{xPercent:-50,yPercent:-50,x:0,y:0,left:small?'78%':'73%',top:small?'60%':'54%',scale:1,rotation:-7,opacity:small?.38:1});
-      gsap.set('.implant-video-world',{xPercent:-50,yPercent:-50,left:small?'74%':'69%',top:small?'64%':'54%',autoAlpha:0});
+      gsap.set('.implant-video-world',{xPercent:-50,yPercent:-50,left:small?'50%':'69%',top:small?'70%':'54%',autoAlpha:0});
       gsap.set('.function-word',{opacity:.15,y:12});
       const show = (selector, at, duration=.07) => timeline.fromTo(selector,{autoAlpha:0,y:small?15:30},{autoAlpha:1,y:0,duration},at);
       const hide = (selector, at, duration=.06) => timeline.to(selector,{autoAlpha:0,y:small?-12:-25,duration},at);
@@ -119,7 +119,7 @@
         onUpdate(self){
           const chapter = self.progress<.16?0:self.progress<.36?1:self.progress<.61?2:self.progress<.83?3:4;
           scenes.forEach((scene,i)=>{scene.inert=i!==chapter;});
-          const localProgress = gsap.utils.clamp(0,1,(self.progress-.35)/(.92-.35));
+          const localProgress = gsap.utils.clamp(0,1,(self.progress-.35)/(1-.35));
           scheduleVideoSync(localProgress);
         }
       }});
@@ -138,19 +138,18 @@
       timeline.to(stageLight,{autoAlpha:0,duration:.18,ease:'power2.inOut'},.31);
       timeline.to(journeyStage,{backgroundColor:'var(--implant-scene-bg)',duration:.20,ease:'power2.inOut'},.31);
       timeline.to('.implant-video-world',{autoAlpha:1,duration:.10},.35);
+      timeline.to('.implant-video-world',{autoAlpha:1,duration:.55,ease:'none'},.45);
       show('.scene-precision',.36,.065);
       hide('.scene-precision',.59,.055);
-      timeline.to('.implant-video-world',{left:small?'71%':'69%',top:small?'64%':'54%',scale:()=>baseScale()*(small?.97:1),duration:.12},.61);
+      timeline.to('.implant-video-world',{left:small?'50%':'69%',top:small?'70%':'54%',scale:()=>baseScale()*(small?.97:1),duration:.12},.61);
       show('.scene-function',.63,.065);
       timeline.to('.function-word',{opacity:1,y:0,stagger:.035,duration:.055},.65);
       timeline.to(object,{rotation:4,duration:.15},.63);
       hide('.scene-function',.72,.05);
-      timeline.to('.implant-video-world',{left:small?'70%':'69%',top:small?'60%':'54%',scale:()=>baseScale()*(small?.97:1),duration:.15},.81);
+      timeline.to('.implant-video-world',{left:small?'50%':'69%',top:small?'70%':'54%',scale:()=>baseScale()*(small?.97:1),duration:.15},.81);
       timeline.to(object,{left:small?'47%':'27%',top:small?'29%':'48%',scale:small?.8:1.15,rotation:-9,duration:.16},.81);
       show('.scene-natural',.72,.06);
-      timeline.to('.implant-video-world',{autoAlpha:0,duration:small?.025:.08,ease:'power2.inOut'},small?.975:.92);
       timeline.to('.scene-natural',{autoAlpha:0,duration:small?.015:.06,ease:'power2.inOut'},small?.985:.94);
-      timeline.to(journeyStage,{backgroundColor:'var(--paper)',duration:.16,ease:'power2.inOut'},.84);
       // Animate children during the intro; master scene transforms stay scroll-owned.
       if (scrollY < 50) {
         gsap.from('.hero-eyebrow',{opacity:0,y:12,duration:.8,delay:.12});

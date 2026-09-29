@@ -19,8 +19,20 @@
   function update(){queued=false;const range=document.documentElement.scrollHeight-innerHeight;bar.style.transform=`scaleX(${range>0?Math.min(1,scrollY/range):0})`;header.classList.toggle('scrolled',scrollY>36);}
   addEventListener('scroll',()=>{if(!queued){queued=true;requestAnimationFrame(update);}},{passive:true});
   addEventListener('resize',update);update();
-  const booking=document.querySelector('.mobile-booking'),contact=document.querySelector('#contacto');
-  if(booking&&contact)new IntersectionObserver(entries=>{booking.classList.toggle('is-hidden',entries[0].isIntersecting);},{threshold:.1}).observe(contact);
+  const booking=document.querySelector('.mobile-booking'),contactBottom=document.querySelector('#contacto .contact-bottom');
+  const staticBooking=contactBottom?.querySelector('.button');
+  if(booking&&contactBottom)new IntersectionObserver(entries=>{
+    const reached=entries[0].isIntersecting;
+    if(reached&&booking.parentElement!==contactBottom){
+      contactBottom.append(booking);
+      booking.classList.add('is-static');
+      staticBooking?.setAttribute('hidden','');
+    }else if(!reached&&booking.parentElement===contactBottom){
+      document.body.append(booking);
+      booking.classList.remove('is-static');
+      staticBooking?.removeAttribute('hidden');
+    }
+  },{threshold:.1}).observe(contactBottom);
   // Native details keep the service index usable without JavaScript.
   document.querySelectorAll('.service-item').forEach(item=>item.addEventListener('toggle',()=>{if(item.open)document.querySelectorAll('.service-item').forEach(other=>{if(other!==item)other.open=false;});}));
 })();
