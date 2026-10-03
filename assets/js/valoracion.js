@@ -19,8 +19,7 @@
     .map((wheel) => [wheel.dataset.timeWheel, wheel]));
   const timeTrigger = document.querySelector('[data-picker-trigger="time"]');
   const whatsappLink = document.querySelector('[data-whatsapp]');
-  const languageGate = document.querySelector('[data-language-gate]');
-  const gatedElements = [document.querySelector('.skip-link'), document.querySelector('.valuation-header'), document.querySelector('.valuation-main')];
+  const languageStorageKey = 'dentalLegacyLanguage';
 
   const translations = {
     es: {
@@ -64,7 +63,14 @@
   };
 
   let currentView = 'intro';
-  let currentLanguage = 'es';
+  let currentLanguage = (() => {
+    try {
+      const storedLanguage = localStorage.getItem(languageStorageKey);
+      return storedLanguage === 'en' ? 'en' : 'es';
+    } catch {
+      return 'es';
+    }
+  })();
   const timeSelection = { hour: '1', minute: '00', period: 'AM' };
 
   const pad = (value) => String(value).padStart(2, '0');
@@ -390,19 +396,6 @@
     updateProgress(currentView);
   };
 
-  const closeLanguageGate = (language) => {
-    applyLanguage(language);
-    gatedElements.forEach((element) => element.removeAttribute('inert'));
-    document.body.classList.remove('language-open');
-    languageGate.classList.add('is-closing');
-    const finish = () => {
-      languageGate.hidden = true;
-      document.querySelector('[data-start]').focus();
-    };
-    if (matchMedia('(prefers-reduced-motion: reduce)').matches) finish();
-    else setTimeout(finish, 380);
-  };
-
   document.querySelector('[data-start]').addEventListener('click', () => showView('1'));
 
   document.querySelectorAll('[data-next]').forEach((button) => {
@@ -458,9 +451,7 @@
 
   buildTimeWheels();
   Object.entries(timeSelection).forEach(([type, value]) => updateTimeWheel(type, value, true));
-  document.querySelectorAll('[data-language]').forEach((button) => {
-    button.addEventListener('click', () => closeLanguageGate(button.dataset.language));
-  });
+  applyLanguage(currentLanguage);
 
   form.addEventListener('submit', (event) => {
     event.preventDefault();

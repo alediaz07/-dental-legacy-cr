@@ -14,6 +14,12 @@
     // Dental Legacy CR, Centro Comercial MC, San Vicente de Moravia.
     const clinicCoordinates = [-84.0474428, 9.9629681];
     const directionsUrl = 'https://www.google.com/maps/dir/?api=1&destination=Dental+Legacy+CR%2C+Av.+65+59A%2C+Coragua%2C+San+Vicente+de+Moravia%2C+Costa+Rica';
+    const languageCopy = () => window.DentalLanguage?.map?.() || {
+      toggle: 'Alternar atribución del mapa', zoomIn: 'Acercar mapa', zoomOut: 'Alejar mapa', close: 'Cerrar información del mapa',
+      windowsHelp: 'Mantén Ctrl y desplaza para ampliar el mapa', macHelp: 'Mantén ⌘ y desplaza para ampliar el mapa', mobileHelp: 'Usa dos dedos para mover el mapa',
+      marker: 'Dental Legacy CR, San Vicente de Moravia. Mostrar información', directions: 'Cómo llegar', directionsAria: 'Cómo llegar a Dental Legacy CR en Google Maps'
+    };
+    const initialCopy = languageCopy();
 
     try {
       const map = new maplibregl.Map({
@@ -28,13 +34,13 @@
         dragRotate: false,
         pitchWithRotate: false,
         locale: {
-          'AttributionControl.ToggleAttribution': 'Alternar atribución del mapa',
-          'NavigationControl.ZoomIn': 'Acercar mapa',
-          'NavigationControl.ZoomOut': 'Alejar mapa',
-          'Popup.Close': 'Cerrar información del mapa',
-          'CooperativeGesturesHandler.WindowsHelpText': 'Mantén Ctrl y desplaza para ampliar el mapa',
-          'CooperativeGesturesHandler.MacHelpText': 'Mantén ⌘ y desplaza para ampliar el mapa',
-          'CooperativeGesturesHandler.MobileHelpText': 'Usa dos dedos para mover el mapa'
+          'AttributionControl.ToggleAttribution': initialCopy.toggle,
+          'NavigationControl.ZoomIn': initialCopy.zoomIn,
+          'NavigationControl.ZoomOut': initialCopy.zoomOut,
+          'Popup.Close': initialCopy.close,
+          'CooperativeGesturesHandler.WindowsHelpText': initialCopy.windowsHelp,
+          'CooperativeGesturesHandler.MacHelpText': initialCopy.macHelp,
+          'CooperativeGesturesHandler.MobileHelpText': initialCopy.mobileHelp
         }
       });
 
@@ -69,7 +75,7 @@
         const markerElement = document.createElement('button');
         markerElement.type = 'button';
         markerElement.className = 'legacy-map-marker';
-        markerElement.setAttribute('aria-label', 'Dental Legacy CR, San Vicente de Moravia. Mostrar información');
+        markerElement.setAttribute('aria-label', initialCopy.marker);
 
         const popupContent = document.createElement('div');
         const title = document.createElement('p');
@@ -83,8 +89,8 @@
         directions.href = directionsUrl;
         directions.target = '_blank';
         directions.rel = 'noopener noreferrer';
-        directions.textContent = 'Cómo llegar';
-        directions.setAttribute('aria-label', 'Cómo llegar a Dental Legacy CR en Google Maps');
+        directions.textContent = initialCopy.directions;
+        directions.setAttribute('aria-label', initialCopy.directionsAria);
         popupContent.append(title, address, directions);
 
         const popup = new maplibregl.Popup({ offset: 18, closeButton: true, closeOnClick: false })
@@ -94,6 +100,21 @@
           .setLngLat(clinicCoordinates)
           .setPopup(popup)
           .addTo(map);
+
+        document.addEventListener('dental-language-change', () => {
+          const copy = languageCopy();
+          markerElement.setAttribute('aria-label', copy.marker);
+          directions.textContent = copy.directions;
+          directions.setAttribute('aria-label', copy.directionsAria);
+          const zoomIn = container.querySelector('.maplibregl-ctrl-zoom-in');
+          const zoomOut = container.querySelector('.maplibregl-ctrl-zoom-out');
+          const attribution = container.querySelector('.maplibregl-ctrl-attrib-button');
+          const closeButton = container.querySelector('.maplibregl-popup-close-button');
+          if (zoomIn) { zoomIn.title = copy.zoomIn; zoomIn.setAttribute('aria-label', copy.zoomIn); }
+          if (zoomOut) { zoomOut.title = copy.zoomOut; zoomOut.setAttribute('aria-label', copy.zoomOut); }
+          if (attribution) { attribution.title = copy.toggle; attribution.setAttribute('aria-label', copy.toggle); }
+          if (closeButton) closeButton.setAttribute('aria-label', copy.close);
+        });
       });
 
       mapInstance = map;

@@ -8,7 +8,8 @@
     const states=cards.map(card=>{
       const video=card.querySelector('video'),play=card.querySelector('.reel-play'),sound=card.querySelector('.reel-sound');
       const state={card,video,play,sound,userPaused:false};ratios.set(card,0);
-      function sync(){play.setAttribute('aria-label',`${video.paused?'Reproducir':'Pausar'}: ${card.querySelector('h3').textContent}`);play.classList.toggle('is-playing',!video.paused);sound.setAttribute('aria-label',video.muted?'Activar sonido':'Silenciar');sound.setAttribute('aria-pressed',String(!video.muted));card.classList.toggle('is-playing',!video.paused);}
+      function sync(){const labels=window.DentalLanguage?.reelControls?.()||{play:'Reproducir',pause:'Pausar',soundOn:'Activar sonido',soundOff:'Silenciar'};play.setAttribute('aria-label',`${video.paused?labels.play:labels.pause}: ${card.querySelector('h3').textContent}`);play.classList.toggle('is-playing',!video.paused);sound.setAttribute('aria-label',video.muted?labels.soundOn:labels.soundOff);sound.setAttribute('aria-pressed',String(!video.muted));card.classList.toggle('is-playing',!video.paused);}
+      state.sync=sync;
       video.addEventListener('play',sync);video.addEventListener('pause',sync);video.addEventListener('volumechange',sync);
       video.addEventListener('ended',()=>{state.userPaused=true;sync();});
       video.addEventListener('error',()=>{card.querySelector('.video-error').hidden=false;card.classList.add('has-error');});
@@ -36,6 +37,7 @@
     document.addEventListener('visibilitychange',()=>{if(document.hidden)states.forEach(s=>s.video.pause());else choose();});
     reduced.addEventListener('change',()=>{if(reduced.matches)states.forEach(s=>s.video.pause());else choose();});
     addEventListener('pagehide',()=>states.forEach(s=>s.video.pause()));
+    document.addEventListener('dental-language-change',()=>states.forEach(s=>s.sync()));
   }
   window.DentalReels={init};
 })();
