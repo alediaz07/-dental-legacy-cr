@@ -127,31 +127,6 @@
     }
   }, { threshold: 0.1 }).observe(contactBottom);
 
-  let contactPanelPromise;
-  const loadContactPanel = () => {
-    if (window.DentalContactPanelReady) return Promise.resolve();
-    if (!contactPanelPromise) contactPanelPromise = loadScript('assets/js/contact-panel.js');
-    return contactPanelPromise;
-  };
-  const warmContactPanel = () => loadContactPanel().catch(() => {});
-  document.querySelectorAll('[data-contact-open]').forEach((trigger) => {
-    trigger.addEventListener('pointerenter', warmContactPanel, { once: true, passive: true });
-    trigger.addEventListener('focus', warmContactPanel, { once: true });
-    trigger.addEventListener('touchstart', warmContactPanel, { once: true, passive: true });
-  });
-  document.addEventListener('click', async (event) => {
-    const trigger = event.target.closest?.('[data-contact-open]');
-    if (!trigger || window.DentalContactPanelReady) return;
-    event.preventDefault();
-    event.stopImmediatePropagation();
-    try {
-      await loadContactPanel();
-      trigger.click();
-    } catch {
-      window.location.href = trigger.href;
-    }
-  }, true);
-
   let mapPromise;
   const loadMap = () => {
     if (mapPromise) return mapPromise;

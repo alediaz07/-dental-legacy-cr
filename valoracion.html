@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f6f4f1">
+  <meta name="robots" content="noindex,follow">
+  <title>Agenda tu valoración | Dental Legacy CR</title>
+  <meta name="description" content="Solicita tu valoración en Dental Legacy CR. Indica el motivo de tu consulta, fecha y hora preferidas y envía tu solicitud directamente por WhatsApp.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Agenda tu valoración | Dental Legacy CR">
+  <meta property="og:description" content="Completa una solicitud breve y envíala directamente a Dental Legacy CR por WhatsApp.">
+  <meta property="og:site_name" content="Dental Legacy CR">
+  <meta property="og:image" content="https://alediaz07.github.io/-dental-legacy-cr/assets/dental-legacy-equipo.jpeg">
+  <meta property="og:image:alt" content="Dental Legacy CR en sus instalaciones">
+  <link rel="icon" type="image/webp" href="assets/brand/symbol.webp">
+  <link rel="preload" as="font" type="font/woff2" href="assets/fonts/font-1.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="assets/fonts/font-3.woff2" crossorigin>
+  <link rel="stylesheet" href="assets/fonts/fonts.css">
+  <link rel="stylesheet" href="assets/css/valoracion.css?v=2">
+  <script defer src="assets/js/valoracion.js?v=2"></script>
+</head>
+<body class="language-open">
+  <div class="language-gate" data-language-gate role="dialog" aria-modal="true" aria-labelledby="language-title">
+    <div class="language-gate-inner">
+      <img class="language-gate-logo" src="assets/brand/logo.webp" alt="Dental Legacy — Implant &amp; Cosmetic Center" width="1536" height="1024">
+      <p class="language-gate-title" id="language-title"><span lang="es">¿En qué idioma deseas continuar?</span><em lang="en">Which language would you prefer?</em></p>
+      <div class="language-options">
+        <button class="language-option" type="button" data-language="es"><span>ES</span> Español</button>
+        <button class="language-option" type="button" data-language="en"><span>EN</span> English</button>
+      </div>
+    </div>
+  </div>
+
+  <a class="skip-link" href="#valoracion-main" inert>Saltar al formulario</a>
+
+  <header class="valuation-header" inert>
+    <a class="home-link" href="index.html"><span aria-hidden="true">←</span> Volver a Dental Legacy</a>
+    <div class="progress" aria-label="Progreso de la solicitud">
+      <span class="progress-label" data-progress-label>Inicio</span>
+      <span class="progress-track" aria-hidden="true"><i data-progress-bar></i></span>
+      <span class="progress-count" data-progress-count>00 / 05</span>
+    </div>
+  </header>
+
+  <main id="valoracion-main" class="valuation-main" inert>
+    <div class="valuation-shell">
+      <section class="flow-view intro-view is-active" data-view="intro" aria-labelledby="valuation-title">
+        <p class="eyebrow">Dental Legacy CR</p>
+        <h1 id="valuation-title">Agenda tu <em>valoración</em></h1>
+        <p class="intro-copy">Cuéntanos brevemente qué necesitas.<br>Te tomará menos de un minuto.</p>
+        <button class="primary-action" type="button" data-start>Comenzar <span aria-hidden="true">→</span></button>
+      </section>
+
+      <form id="valuation-form" novalidate>
+        <section class="flow-view" data-view="1" aria-labelledby="question-1" hidden>
+          <h2 id="question-1" tabindex="-1">¿Cómo te llamas?</h2>
+          <label class="field-label" for="patient-name">Tu nombre</label>
+          <input class="text-input" id="patient-name" name="name" type="text" placeholder="Tu nombre" maxlength="80" autocomplete="name" required aria-describedby="error-1">
+          <p class="form-error" id="error-1" aria-live="polite"></p>
+          <div class="step-actions step-actions--forward">
+            <button class="primary-action" type="button" data-next="1">Continuar <span aria-hidden="true">→</span></button>
+          </div>
+        </section>
+
+        <section class="flow-view" data-view="2" aria-labelledby="question-2" hidden>
+          <h2 id="question-2" tabindex="-1">¿Qué te gustaría consultar?</h2>
+          <fieldset class="reason-options" aria-describedby="error-2">
+            <legend class="sr-only">Selecciona el motivo de tu consulta</legend>
+            <div class="reason-option">
+              <input id="reason-general" name="reason" type="radio" value="general">
+              <label for="reason-general"><span>Valoración general</span><i aria-hidden="true"></i></label>
+            </div>
+            <div class="reason-option">
+              <input id="reason-implants" name="reason" type="radio" value="implantes">
+              <label for="reason-implants"><span>Implantes dentales</span><i aria-hidden="true"></i></label>
+            </div>
+            <div class="reason-option">
+              <input id="reason-aesthetic" name="reason" type="radio" value="blanqueamiento">
+              <label for="reason-aesthetic"><span>Estética / blanqueamiento</span><i aria-hidden="true"></i></label>
+            </div>
+            <div class="reason-option">
+              <input id="reason-discomfort" name="reason" type="radio" value="molestia">
+              <label for="reason-discomfort"><span>Tengo una molestia</span><i aria-hidden="true"></i></label>
+            </div>
+            <div class="reason-option">
+              <input id="reason-other" name="reason" type="radio" value="otro">
+              <label for="reason-other"><span>Otro motivo</span><i aria-hidden="true"></i></label>
+            </div>
+          </fieldset>
+          <p class="form-error" id="error-2" aria-live="polite"></p>
+          <div class="step-actions">
+            <button class="back-action" type="button" data-back="2"><span aria-hidden="true">←</span> Atrás</button>
+            <button class="primary-action" type="button" data-next="2">Continuar <span aria-hidden="true">→</span></button>
+          </div>
+        </section>
+
+        <section class="flow-view" data-view="3" aria-labelledby="question-3" hidden>
+          <h2 id="question-3" tabindex="-1">¿Qué tan pronto te gustaría visitarnos?</h2>
+          <div class="picker-block picker-block--date">
+            <label class="sr-only" for="preferred-date">Selecciona una fecha</label>
+            <input class="native-picker native-picker--assistive" id="preferred-date" name="date" type="date" required aria-describedby="date-note error-3">
+            <button class="picker-trigger" type="button" data-picker-trigger="date" aria-controls="preferred-date">
+              <span class="picker-value" id="date-value" data-date-value>Selecciona una fecha</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3.5" y="5.5" width="17" height="15" rx="1.5"></rect><path d="M7.5 3.5v4M16.5 3.5v4M3.5 10h17"></path></svg>
+            </button>
+          </div>
+          <p class="preference-note" id="date-note">La fecha es una preferencia y está sujeta a coordinación con la clínica.</p>
+          <p class="form-error" id="error-3" aria-live="polite"></p>
+          <div class="step-actions">
+            <button class="back-action" type="button" data-back="3"><span aria-hidden="true">←</span> Atrás</button>
+            <button class="primary-action" type="button" data-next="3">Continuar <span aria-hidden="true">→</span></button>
+          </div>
+        </section>
+
+        <section class="flow-view" data-view="4" aria-labelledby="question-4" hidden>
+          <h2 id="question-4" tabindex="-1">¿A qué hora te funciona mejor?</h2>
+          <div class="picker-block picker-block--time">
+            <label class="picker-label" for="preferred-time">Seleccionar hora</label>
+            <input class="native-picker native-picker--assistive" id="preferred-time" name="time" type="time" required aria-label="Hora preferida" aria-describedby="time-note error-4">
+            <button class="picker-trigger" type="button" data-picker-trigger="time" aria-controls="time-picker" aria-expanded="false">
+              <span class="picker-value" id="time-value" data-time-value>Seleccionar hora</span>
+              <span class="picker-trigger-label" data-time-trigger-label>Formato de 12 horas · a. m. / p. m.</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 7.5v4.8l3.2 1.9"></path></svg>
+            </button>
+            <div class="time-picker" id="time-picker" data-time-picker hidden>
+              <p class="time-picker-title">Selecciona tu hora de preferencia</p>
+              <div class="time-wheels" aria-label="Selector de hora en formato de 12 horas">
+                <div class="time-wheel" data-time-wheel="hour" aria-label="Hora"></div>
+                <div class="time-wheel" data-time-wheel="minute" aria-label="Minutos"></div>
+                <div class="time-wheel" data-time-wheel="period" aria-label="Período"></div>
+              </div>
+              <button class="time-picker-confirm" type="button" data-time-confirm>Usar esta hora <span aria-hidden="true">→</span></button>
+            </div>
+          </div>
+          <p class="preference-note" id="time-note">Selecciona tu preferencia en formato de 12 horas. La hora está sujeta a coordinación con la clínica.</p>
+          <p class="form-error" id="error-4" aria-live="polite"></p>
+          <div class="step-actions">
+            <button class="back-action" type="button" data-back="4"><span aria-hidden="true">←</span> Atrás</button>
+            <button class="primary-action" type="button" data-next="4">Continuar <span aria-hidden="true">→</span></button>
+          </div>
+        </section>
+
+        <section class="flow-view" data-view="5" aria-labelledby="question-5" hidden>
+          <h2 id="question-5" tabindex="-1">¿Hay algo que quieras contarnos?</h2>
+          <label class="field-label" for="patient-comment">Comentario opcional</label>
+          <textarea class="text-input text-area" id="patient-comment" name="comment" maxlength="300" placeholder="Escribe aquí si deseas agregar algún detalle..."></textarea>
+          <div class="step-actions">
+            <button class="back-action" type="button" data-back="5"><span aria-hidden="true">←</span> Atrás</button>
+            <button class="primary-action" type="submit">Revisar solicitud <span aria-hidden="true">→</span></button>
+          </div>
+        </section>
+      </form>
+
+      <section class="flow-view review-view" data-view="review" aria-labelledby="review-title" hidden>
+        <p class="eyebrow">Solicitud de valoración</p>
+        <h2 id="review-title" tabindex="-1">Todo listo.</h2>
+        <p class="review-intro">Revisa tu solicitud antes de enviarla.</p>
+
+        <article class="request-ticket" aria-label="Resumen de la solicitud">
+          <header class="ticket-heading">
+            <p>Dental Legacy CR</p>
+            <span>Solicitud de valoración</span>
+          </header>
+          <dl class="ticket-details">
+            <div><dt>Nombre</dt><dd data-review-name></dd></div>
+            <div><dt>Consulta</dt><dd data-review-reason></dd></div>
+            <div><dt>Fecha preferida</dt><dd data-review-date></dd></div>
+            <div><dt>Hora preferida</dt><dd data-review-time></dd></div>
+            <div data-review-comment-row hidden><dt>Comentario</dt><dd data-review-comment></dd></div>
+          </dl>
+          <p class="ticket-footer">Solicitud generada desde Dental Legacy CR</p>
+        </article>
+
+        <div class="review-actions">
+          <a class="primary-action whatsapp-action" data-whatsapp href="https://wa.me/50687855335" target="_blank" rel="noopener noreferrer">Enviar por WhatsApp <span aria-hidden="true">→</span></a>
+          <button class="edit-action" type="button" data-edit>Editar respuestas</button>
+        </div>
+      </section>
+    </div>
+  </main>
+</body>
+</html>
