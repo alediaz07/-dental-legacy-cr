@@ -279,3 +279,7 @@
 @media(min-width:901px){.reels-stage{grid-template-columns:repeat(3,minmax(0,1fr));align-items:start}.reels-stage .reel-small,.reels-stage .reel-featured,.reels-stage .reel-third{grid-row:1;margin:0;justify-self:center;align-self:start}}
 .editorial-reels .section-heading>div{text-align:center;justify-self:center}
 .editorial-reels .section-heading .section-intro{margin-left:auto;margin-right:auto}
+
+/* The reels section rises as a physical layer over the last sticky story scene. */
+.enhanced .journey{z-index:0}
+.enhanced .editorial-reels{z-index:1;margin-top:-100vh;margin-top:-100dvh;box-shadow:0 -16px 42px rgba(42,34,31,.04)}

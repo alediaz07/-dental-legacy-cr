@@ -3,6 +3,7 @@
   'use strict';
   let media, timeline, trigger;
   let videoFrame = null;
+  let videoResyncFrame = null;
   let videoElement = null;
   let videoReady = false;
   let videoProgress = 0;
@@ -16,6 +17,10 @@
   function canSeekVideo() {
     return videoElement && videoElement.readyState >= 2 && Number.isFinite(videoElement.duration) && videoElement.duration > 0;
   }
+  function getTriggerVideoProgress() {
+    if (!trigger) return videoProgress;
+    return Math.max(0, Math.min(1, (trigger.progress - .35) / (1 - .35)));
+  }
   function syncVideo() {
     if (!videoReady || !canSeekVideo() || videoElement.seeking || videoPrimeInFlight) return;
     const targetTime = videoProgress * Math.max(0, videoElement.duration - .08);
@@ -28,6 +33,21 @@
     if (!videoReady || !videoElement || videoElement.seeking || videoPrimeInFlight || videoFrame !== null) return;
     videoFrame = requestAnimationFrame(() => { videoFrame = null; syncVideo(); });
   }
+  function forceVideoSync() {
+    videoProgress = getTriggerVideoProgress();
+    if (!canSeekVideo() || videoElement.seeking || videoPrimeInFlight) return;
+    const targetTime = videoProgress * Math.max(0, videoElement.duration - .08);
+    if (Math.abs(videoElement.currentTime - targetTime) <= .035) return;
+    try { videoElement.currentTime = targetTime; }
+    catch { videoReady = false; }
+  }
+  function requestVideoResync() {
+    if (videoResyncFrame !== null) return;
+    videoResyncFrame = requestAnimationFrame(() => {
+      videoResyncFrame = null;
+      forceVideoSync();
+    });
+  }
   function updateVideoReadiness() {
     const ready = Boolean(canSeekVideo());
     if (!ready) { videoReady = false; return; }
@@ -35,7 +55,7 @@
       videoReady = true;
       window.ScrollTrigger?.refresh();
       trigger?.update();
-      scheduleVideoSync();
+      requestVideoResync();
     }
   }
   function hydrateVideo(video) {
@@ -60,7 +80,7 @@
     ['loadedmetadata', 'loadeddata', 'canplay', 'canplaythrough', 'durationchange', 'progress'].forEach((eventName) => {
       video.addEventListener(eventName, updateVideoReadiness);
     });
-    video.addEventListener('seeked', () => { updateVideoReadiness(); scheduleVideoSync(); });
+    video.addEventListener('seeked', () => { updateVideoReadiness(); requestVideoResync(); });
     video.addEventListener('error', () => { videoReady = false; });
     armVideoPriming();
     updateVideoReadiness();
@@ -89,7 +109,7 @@
       videoPrimeInFlight = false;
       removeVideoPrimeListeners();
       updateVideoReadiness();
-      scheduleVideoSync();
+      requestVideoResync();
     }).catch(() => { videoPrimeInFlight = false; });
   }
   function armVideoPriming() {
@@ -102,7 +122,13 @@
     window.ScrollTrigger?.refresh();
     trigger?.update();
     updateVideoReadiness();
-    scheduleVideoSync();
+    requestVideoResync();
+  }
+  function handleVisibilityChange() {
+    if (!document.hidden) requestAnimationFrame(() => {
+      trigger?.update();
+      requestVideoResync();
+    });
   }
   function handleOrientationChange() { requestAnimationFrame(refreshStoryViewport); }
   function init() {
@@ -129,6 +155,7 @@
       const hide = (selector, at, duration=.06) => timeline.to(selector,{autoAlpha:0,y:small?-12:-25,duration},at);
       timeline = gsap.timeline({defaults:{ease:'power2.inOut'},scrollTrigger:{
         id:'dental-journey',trigger:stage,start:'top top',end:'bottom bottom',scrub:small?.55:.9,invalidateOnRefresh:true,
+        onEnterBack(){ requestVideoResync(); },
         onUpdate(self){
           const chapter = self.progress<.16?0:self.progress<.36?1:self.progress<.61?2:self.progress<.83?3:4;
           scenes.forEach((scene,i)=>{scene.inert=i!==chapter;});
@@ -162,7 +189,6 @@
       timeline.to('.implant-video-world',{left:small?'50%':'69%',top:small?'70%':'54%',scale:()=>baseScale()*(small?.97:1),duration:.15},.81);
       timeline.to(object,{left:small?'47%':'27%',top:small?'29%':'48%',scale:small?.8:1.15,rotation:-9,duration:.16},.81);
       show('.scene-natural',.72,.06);
-      timeline.to('.scene-natural',{autoAlpha:0,duration:small?.015:.06,ease:'power2.inOut'},small?.985:.94);
       // Animate children during the intro; master scene transforms stay scroll-owned.
       if (scrollY < 50) {
         gsap.from('.hero-eyebrow',{opacity:0,y:12,duration:.8,delay:.12});
@@ -171,12 +197,13 @@
         gsap.from('.brand-light',{opacity:0,duration:1.5,delay:1.35});
       }
       ScrollTrigger.refresh();
-      return () => {if (videoFrame !== null) cancelAnimationFrame(videoFrame);videoFrame=null;scenes.forEach(s=>{s.inert=false;});document.documentElement.classList.remove('enhanced');timeline=null;trigger=null;};
+      return () => {if (videoFrame !== null) cancelAnimationFrame(videoFrame);if (videoResyncFrame !== null) cancelAnimationFrame(videoResyncFrame);videoFrame=null;videoResyncFrame=null;scenes.forEach(s=>{s.inert=false;});document.documentElement.classList.remove('enhanced');timeline=null;trigger=null;};
     });
     document.fonts?.ready.then(()=>ScrollTrigger.refresh());
     if (!viewportListenersAttached) {
       window.addEventListener('pageshow', refreshStoryViewport);
       window.addEventListener('orientationchange', handleOrientationChange, {passive:true});
+      document.addEventListener('visibilitychange', handleVisibilityChange);
       viewportListenersAttached = true;
     }
   }
