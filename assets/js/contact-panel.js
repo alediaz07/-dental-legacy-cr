@@ -286,4 +286,5 @@
     if (opener && opener.isConnected) opener.focus({ preventScroll: true });
     opener = null;
   });
+  window.DentalContactPanelReady = true;
 })();

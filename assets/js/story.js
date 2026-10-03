@@ -11,6 +11,7 @@
   let videoPrimed = false;
   let videoPrimeListenersAttached = false;
   let viewportListenersAttached = false;
+  const saveData = navigator.connection?.saveData === true;
   const chapterPositions = { beyond:.24, precision:.47, functionality:.72, natural:.94 };
   function canSeekVideo() {
     return videoElement && videoElement.readyState >= 2 && Number.isFinite(videoElement.duration) && videoElement.duration > 0;
@@ -37,11 +38,23 @@
       scheduleVideoSync();
     }
   }
-  function prepareVideo(video) {
+  function hydrateVideo(video) {
+    let changed = false;
+    video.querySelectorAll('source[data-src]').forEach((source) => {
+      if (source.getAttribute('src')) return;
+      source.src = source.dataset.src;
+      changed = true;
+    });
+    video.preload = 'auto';
+    if (changed) video.load();
+  }
+  function prepareVideo(video, shouldLoad = true) {
     if (!video) return;
     videoElement = video;
     video.muted = true;
     video.playsInline = true;
+    if (!shouldLoad) return;
+    hydrateVideo(video);
     if (videoListenersAttached) return;
     videoListenersAttached = true;
     ['loadedmetadata', 'loadeddata', 'canplay', 'canplaythrough', 'durationchange', 'progress'].forEach((eventName) => {
@@ -104,7 +117,7 @@
       document.documentElement.classList.add('enhanced');
       const stage = document.querySelector('.journey'), journeyStage = document.querySelector('.journey-stage'), stageLight = document.querySelector('.stage-light'), object = document.querySelector('.brand-object');
       const video = document.getElementById('implant-story-video');
-      prepareVideo(video);
+      prepareVideo(video, !saveData);
       const scenes = [...document.querySelectorAll('.scene')];
       const baseScale = () => small
         ? Math.min(.76,innerHeight/(innerWidth*.78*(16/9))*.70)
