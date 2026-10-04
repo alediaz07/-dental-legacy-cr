@@ -442,13 +442,6 @@
     renderReview();
   });
 
-  document.querySelectorAll('[data-picker-trigger]').forEach((button) => {
-    button.addEventListener('click', () => {
-      if (typeof dateInput.showPicker === 'function') dateInput.showPicker();
-      else dateInput.click();
-    });
-  });
-
   buildTimeWheels();
   Object.entries(timeSelection).forEach(([type, value]) => updateTimeWheel(type, value, true));
   applyLanguage(currentLanguage);
