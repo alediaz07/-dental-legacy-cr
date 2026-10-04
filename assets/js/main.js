@@ -375,6 +375,9 @@
   }));
 
   const languageGate = document.querySelector('[data-language-gate]');
+  const languageContinue = document.querySelector('[data-language-continue]');
+  const languageContinueText = document.querySelector('[data-language-continue-text]');
+  let pendingLanguage = 'es';
   const skipLanguageGate = new URLSearchParams(window.location.search).has('skip-language-gate');
   const languageContent = [...document.querySelectorAll('[data-language-content]')];
   const unlockLanguageContent = () => languageContent.forEach((element) => element.removeAttribute('inert'));
@@ -420,8 +423,13 @@
   };
 
   document.querySelectorAll('[data-language-choice]').forEach((button) => {
-    button.addEventListener('click', () => selectLanguage(button.dataset.languageChoice, true));
+    button.addEventListener('click', () => {
+      document.querySelectorAll('[data-language-choice]').forEach((choice) => choice.setAttribute('aria-pressed', String(choice === button)));
+      pendingLanguage = button.dataset.languageChoice;
+      languageContinueText.textContent = pendingLanguage === 'en' ? 'Continue' : 'Continuar';
+    });
   });
+  languageContinue.addEventListener('click', () => selectLanguage(pendingLanguage, true));
   document.querySelectorAll('[data-language-switch]').forEach((button) => {
     button.addEventListener('click', () => selectLanguage(button.dataset.languageSwitch));
   });

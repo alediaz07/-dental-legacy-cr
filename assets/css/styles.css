@@ -256,4 +256,13 @@ html.has-language-preference .language-gate{display:none}
 .header-language-switch>span{display:none}
 @media(max-width:900px){.header-actions{margin-left:auto}.header-language-switch{gap:3px}}
 @media(max-width:600px){.language-gate{padding:max(22px,env(safe-area-inset-top)) max(20px,env(safe-area-inset-right)) max(22px,env(safe-area-inset-bottom)) max(20px,env(safe-area-inset-left))}.language-gate-logo{width:min(74vw,270px)}.language-gate-title{font-size:clamp(30px,9vw,42px)}.language-options{grid-template-columns:1fr}.language-option{min-height:66px}.language-option+.language-option{border-top:1px solid var(--line);border-left:0}.header-actions{gap:8px}.header-language-switch button{min-width:24px}.menu-toggle{margin-left:0}}
+.language-gate .language-options{position:relative;display:flex;width:min(100%,390px);padding:4px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.48);overflow:hidden}
+.language-gate .language-options::before{position:absolute;inset:4px auto 4px 4px;width:calc(50% - 4px);border-radius:999px;background:var(--ink);content:"";transition:transform .28s ease}
+.language-gate .language-options:has(button[data-language-choice="en"][aria-pressed="true"])::before{transform:translateX(100%)}
+.language-gate .language-option{position:relative;z-index:1;flex:1;min-height:58px;padding:12px 10px;border:0!important;background:transparent;color:var(--muted);font-size:12px;transition:color .25s ease}
+.language-gate .language-option[aria-pressed="true"]{color:var(--paper)}
+.language-gate .language-option span{color:inherit}
+.language-continue{display:flex;align-items:center;justify-content:space-between;width:min(100%,390px);min-height:54px;margin-top:16px;padding:12px 20px;border:1px solid var(--ink);border-radius:999px;background:transparent;color:var(--ink);font:500 13px/1.3 var(--sans);cursor:pointer;transition:background .25s ease,color .25s ease,transform .25s ease,box-shadow .25s ease}
+.language-continue:hover,.language-continue:focus-visible{background:var(--ink);color:var(--paper);box-shadow:0 10px 22px rgba(42,34,31,.12);transform:translateY(-2px)}
+.language-continue:active{transform:scale(.98)}
 @media(prefers-reduced-motion:reduce){.language-gate{transition-duration:.01ms}}
