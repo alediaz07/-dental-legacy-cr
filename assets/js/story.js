@@ -156,6 +156,7 @@
       timeline = gsap.timeline({defaults:{ease:'power2.inOut'},scrollTrigger:{
         id:'dental-journey',trigger:stage,start:'top top',end:'bottom bottom',scrub:small?.55:.9,invalidateOnRefresh:true,
         onEnterBack(){ requestVideoResync(); },
+        onScrubComplete(){ requestVideoResync(); },
         onUpdate(self){
           const chapter = self.progress<.16?0:self.progress<.36?1:self.progress<.61?2:self.progress<.83?3:4;
           scenes.forEach((scene,i)=>{scene.inert=i!==chapter;});

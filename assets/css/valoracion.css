@@ -42,6 +42,7 @@ h1 em{display:block;color:var(--accent);font-weight:500}
 h2{font-size:clamp(50px,6.8vw,92px);line-height:.92}
 .flow-view:not(.intro-view) h2,.flow-view:not(.intro-view) .text-input,.flow-view:not(.intro-view) .reason-option label,.flow-view:not(.intro-view) .native-picker,.flow-view:not(.intro-view) .picker-value,.flow-view:not(.intro-view) .ticket-details dd{font-family:var(--serif);font-weight:500;letter-spacing:-.03em}
 .intro-copy,.review-intro{margin:clamp(25px,4vw,42px) 0 0;color:var(--muted);font-size:clamp(15px,1.4vw,18px);line-height:1.75}
+.review-note{width:min(100%,620px);margin:14px 0 0;padding:12px 15px;border-left:2px solid var(--accent);background:rgba(135,99,70,.07);color:var(--muted);font-size:12px;line-height:1.65}
 
 .primary-action{display:inline-flex;align-items:center;justify-content:space-between;gap:38px;min-width:220px;min-height:54px;margin-top:clamp(30px,5vw,50px);padding:13px 20px;border:1px solid var(--ink);border-radius:2px;background:var(--ink);color:var(--paper);font-size:13px;font-weight:500;text-decoration:none;cursor:pointer;transition:background .25s ease,border-color .25s ease,transform .25s ease,box-shadow .25s ease}
 .primary-action span{transition:transform .25s ease}
@@ -97,6 +98,7 @@ h2{font-size:clamp(50px,6.8vw,92px);line-height:.92}
 .time-wheel-option:focus-visible{position:relative;z-index:2;outline-offset:-3px}
 .time-picker-confirm{display:flex;align-items:center;justify-content:space-between;width:100%;min-height:46px;margin-top:12px;padding:10px 13px;border:1px solid var(--ink);border-radius:2px;background:var(--ink);color:var(--paper);font:500 12px/1.3 var(--sans);cursor:pointer;transition:background .2s ease,border-color .2s ease}
 .time-picker-confirm:hover{border-color:var(--accent);background:var(--accent)}
+.time-confirmation{margin:11px 0 0;color:var(--accent);font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
 .preference-note{width:min(100%,680px);margin:15px 0 0;color:var(--muted);font-size:11px;line-height:1.6}
 
 .review-view{width:min(100%,920px)}
@@ -112,6 +114,17 @@ h2{font-size:clamp(50px,6.8vw,92px);line-height:.92}
 .ticket-details dt{margin-bottom:6px;color:var(--muted);font-size:9px;font-weight:600;letter-spacing:.14em;text-transform:uppercase}
 .ticket-details dd{margin:0;overflow-wrap:anywhere;font-family:var(--serif);font-size:clamp(17px,2vw,22px);line-height:1.35}
 .ticket-footer{margin:18px 0 0;color:var(--muted);font-size:9px;letter-spacing:.12em;text-transform:uppercase}
+.ticket-details--editable{grid-template-columns:1fr}
+.ticket-details--editable>div,.ticket-details--editable>div:nth-child(even){padding:20px 0;border-bottom:0;border-left:0}
+.ticket-details--editable dd{width:100%}
+.ticket-input{display:block;width:100%;padding:9px 0;border:0;border-bottom:1px solid var(--line);outline:0;background:transparent;color:var(--ink);font-family:var(--serif);font-size:clamp(20px,2.3vw,29px);font-weight:500;line-height:1.35;transition:border-color .2s ease,box-shadow .2s ease}
+.ticket-input:focus{border-bottom-color:var(--accent);box-shadow:0 2px 0 var(--accent)}
+.ticket-textarea{min-height:92px;resize:vertical;font-family:var(--sans);font-size:15px;line-height:1.65}
+.ticket-details--editable .reason-options,.ticket-details--editable .picker-block{width:100%;margin:0}
+.ticket-details--editable .reason-options{gap:7px}
+.ticket-details--editable .reason-option label{min-height:52px;font-size:clamp(17px,2vw,23px)}
+.ticket-details--editable .preference-note{width:100%;margin-top:10px}
+.ticket-details--editable .time-picker{margin-top:0}
 .review-actions{display:flex;align-items:center;gap:28px;width:min(100%,780px)}
 .review-actions .primary-action{margin-top:26px}
 .edit-action{margin-top:26px}
@@ -119,6 +132,24 @@ h2{font-size:clamp(50px,6.8vw,92px);line-height:.92}
 :focus-visible{outline:2px solid var(--accent);outline-offset:4px}
 .primary-action:focus-visible{outline-color:var(--ink);outline-offset:4px}
 .sr-only{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
+
+/* Softer, more inviting presentation while preserving the form flow. */
+body{background:radial-gradient(circle at 82% 12%,rgba(206,181,148,.23),transparent 28%),linear-gradient(145deg,#f8f6f2 0%,#f1ece4 100%)}
+.valuation-header{position:relative}
+.valuation-shell{position:relative;padding:clamp(30px,5vw,66px);border:1px solid rgba(214,207,197,.9);border-radius:28px;background:rgba(255,255,255,.48);box-shadow:0 24px 70px rgba(64,48,37,.08);backdrop-filter:blur(10px)}
+.progress{padding:8px 11px;border:1px solid rgba(214,207,197,.82);border-radius:999px;background:rgba(255,255,255,.42)}
+.progress-track{border-radius:999px}
+.progress-track i{border-radius:inherit}
+.text-input{margin-top:13px;padding:14px 17px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.62);box-shadow:inset 0 1px 0 rgba(255,255,255,.75);transition:border-color .2s ease,box-shadow .2s ease,background .2s ease}
+.text-input:focus{border-color:var(--accent);background:#fff;box-shadow:0 0 0 4px rgba(135,99,70,.12)}
+.primary-action{border-radius:999px;padding-right:24px;padding-left:24px;box-shadow:0 8px 20px rgba(42,34,31,.13)}
+.reason-option{border-radius:16px;background:rgba(255,255,255,.5);box-shadow:0 4px 14px rgba(54,40,29,.025)}
+.reason-option label{padding-right:20px;padding-left:20px}
+.reason-option:has(input:checked){box-shadow:0 12px 26px rgba(90,63,43,.11)}
+.picker-trigger,.time-picker{border-radius:16px;background:rgba(255,255,255,.52)}
+.time-wheels{border-radius:12px;background:rgba(255,255,255,.66)}
+.time-picker-confirm{border-radius:999px}
+.request-ticket{border-radius:22px;background:rgba(255,255,255,.55);box-shadow:0 14px 35px rgba(64,48,37,.06)}
 
 @media(max-width:700px){
   .valuation-header{align-items:flex-start;padding:18px 20px 10px}
@@ -146,6 +177,8 @@ h2{font-size:clamp(50px,6.8vw,92px);line-height:.92}
   .review-actions{align-items:stretch;flex-direction:column;gap:5px}
   .review-actions .primary-action{margin-top:23px}
   .edit-action{align-self:center;margin-top:0}
+  .valuation-shell{padding:28px 20px;border-radius:22px}
+  .progress{padding:7px 9px}
 }
 
 @media(prefers-reduced-motion:reduce){

@@ -12,14 +12,12 @@
   const progressCount = document.querySelector('[data-progress-count]');
   const progressBar = document.querySelector('[data-progress-bar]');
   const dateValue = document.querySelector('[data-date-value]');
-  const timeValue = document.querySelector('[data-time-value]');
-  const timeTriggerLabel = document.querySelector('[data-time-trigger-label]');
-  const timePicker = document.querySelector('[data-time-picker]');
   const timeWheels = Object.fromEntries([...document.querySelectorAll('[data-time-wheel]')]
     .map((wheel) => [wheel.dataset.timeWheel, wheel]));
-  const timeTrigger = document.querySelector('[data-picker-trigger="time"]');
+  const timeConfirmation = document.querySelector('[data-time-confirmation]');
   const whatsappLink = document.querySelector('[data-whatsapp]');
   const languageStorageKey = 'dentalLegacyLanguage';
+  const draftStorageKey = 'dentalLegacyValuationDraft';
 
   const translations = {
     es: {
@@ -31,9 +29,9 @@
       q2: '¿Qué te gustaría consultar?', reasonLegend: 'Selecciona el motivo de tu consulta', back: 'Atrás',
       reasons: { general: 'Valoración general', implantes: 'Implantes dentales', blanqueamiento: 'Estética / blanqueamiento', molestia: 'Tengo una molestia', otro: 'Otro motivo' },
       q3: '¿Qué tan pronto te gustaría visitarnos?', selectDate: 'Selecciona una fecha', dateNote: 'La fecha es una preferencia y está sujeta a coordinación con la clínica.',
-      q4: '¿A qué hora te funciona mejor?', selectTime: 'Seleccionar hora', preferredTime: 'Hora preferida', timeFormat: 'Formato de 12 horas · a. m. / p. m.', enterPreferredTime: 'Digitar hora de preferencia', timePickerTitle: 'Selecciona tu hora de preferencia', timePickerAria: 'Selector de hora en formato de 12 horas', hour: 'Hora', minutes: 'Minutos', period: 'Período', useTime: 'Usar esta hora', timeNote: 'Selecciona tu preferencia en formato de 12 horas. La hora está sujeta a coordinación con la clínica.', am: 'a. m.', pm: 'p. m.',
+      q4: '¿A qué hora te funciona mejor?', selectTime: 'Seleccionar hora', preferredTime: 'Hora preferida', timeFormat: 'Formato de 12 horas · a. m. / p. m.', enterPreferredTime: 'Digitar hora de preferencia', timePickerTitle: 'Selecciona tu hora de preferencia', timePickerAria: 'Selector de hora en formato de 12 horas', hour: 'Hora', minutes: 'Minutos', period: 'Período', useTime: 'Usar esta hora', timeSelected: 'Hora seleccionada:', timeNote: 'Selecciona tu preferencia en formato de 12 horas. La hora está sujeta a coordinación con la clínica.', am: 'a. m.', pm: 'p. m.',
       q5: '¿Hay algo que quieras contarnos?', optionalComment: 'Comentario opcional', commentPlaceholder: 'Escribe aquí si deseas agregar algún detalle...', reviewRequest: 'Revisar solicitud',
-      request: 'Solicitud de valoración', ready: 'Todo listo.', reviewIntro: 'Revisa tu solicitud antes de enviarla.', requestSummary: 'Resumen de la solicitud', name: 'Nombre', consultation: 'Consulta', preferredDate: 'Fecha preferida', preferredTimeLabel: 'Hora preferida', comment: 'Comentario', generated: 'Solicitud generada desde Dental Legacy CR', sendWhatsapp: 'Enviar por WhatsApp', edit: 'Editar respuestas',
+      request: 'Solicitud de valoración', ready: 'Todo listo.', reviewIntro: 'Revisa tu solicitud antes de enviarla.', reviewNote: 'Esta solicitud no confirma una cita. La fecha y hora quedan sujetas a confirmación por WhatsApp.', requestSummary: 'Resumen de la solicitud', name: 'Nombre', consultation: 'Consulta', preferredDate: 'Fecha preferida', preferredTimeLabel: 'Hora preferida', comment: 'Comentario', generated: 'Solicitud generada desde Dental Legacy CR', sendWhatsapp: 'Enviar por WhatsApp', edit: 'Editar respuestas',
       errors: { name: 'Escribe tu nombre para continuar.', reason: 'Selecciona una opción para continuar.', date: 'Selecciona una fecha para continuar.', pastDate: 'Selecciona una fecha a partir de hoy.', time: 'Selecciona una hora para continuar.' },
       message: { hello: 'Hola, Dental Legacy CR.', intro: 'Quisiera solicitar una valoración.', title: 'SOLICITUD DE VALORACIÓN', name: 'Nombre', reason: 'Motivo', date: 'Fecha preferida', time: 'Hora preferida', comment: 'Comentario', sent: 'Enviado desde Dental Legacy CR' }
     },
@@ -46,9 +44,9 @@
       q2: 'What would you like to discuss?', reasonLegend: 'Select the reason for your visit', back: 'Back',
       reasons: { general: 'General assessment', implantes: 'Dental implants', blanqueamiento: 'Aesthetics / whitening', molestia: 'I have discomfort', otro: 'Another reason' },
       q3: 'How soon would you like to visit us?', selectDate: 'Select a date', dateNote: 'The date is a preference and is subject to coordination with the clinic.',
-      q4: 'What time works best for you?', selectTime: 'Select a time', preferredTime: 'Preferred time', timeFormat: '12-hour format · a.m. / p.m.', enterPreferredTime: 'Enter preferred time', timePickerTitle: 'Select your preferred time', timePickerAria: '12-hour time selector', hour: 'Hour', minutes: 'Minutes', period: 'Period', useTime: 'Use this time', timeNote: 'Select your preference in 12-hour format. The time is subject to coordination with the clinic.', am: 'a.m.', pm: 'p.m.',
+      q4: 'What time works best for you?', selectTime: 'Select a time', preferredTime: 'Preferred time', timeFormat: '12-hour format · a.m. / p.m.', enterPreferredTime: 'Enter preferred time', timePickerTitle: 'Select your preferred time', timePickerAria: '12-hour time selector', hour: 'Hour', minutes: 'Minutes', period: 'Period', useTime: 'Use this time', timeSelected: 'Selected time:', timeNote: 'Select your preference in 12-hour format. The time is subject to coordination with the clinic.', am: 'a.m.', pm: 'p.m.',
       q5: 'Is there anything you would like to tell us?', optionalComment: 'Optional comment', commentPlaceholder: 'Add any details you would like us to know...', reviewRequest: 'Review request',
-      request: 'Assessment request', ready: 'All set.', reviewIntro: 'Review your request before sending it.', requestSummary: 'Request summary', name: 'Name', consultation: 'Consultation', preferredDate: 'Preferred date', preferredTimeLabel: 'Preferred time', comment: 'Comment', generated: 'Request generated from Dental Legacy CR', sendWhatsapp: 'Send via WhatsApp', edit: 'Edit answers',
+      request: 'Assessment request', ready: 'All set.', reviewIntro: 'Review your request before sending it.', reviewNote: 'This request does not confirm an appointment. Your preferred date and time remain subject to confirmation through WhatsApp.', requestSummary: 'Request summary', name: 'Name', consultation: 'Consultation', preferredDate: 'Preferred date', preferredTimeLabel: 'Preferred time', comment: 'Comment', generated: 'Request generated from Dental Legacy CR', sendWhatsapp: 'Send via WhatsApp', edit: 'Edit answers',
       errors: { name: 'Enter your name to continue.', reason: 'Select an option to continue.', date: 'Select a date to continue.', pastDate: 'Select today or a future date.', time: 'Select a time to continue.' },
       message: { hello: 'Hello, Dental Legacy CR.', intro: 'I would like to request an assessment.', title: 'ASSESSMENT REQUEST', name: 'Name', reason: 'Reason', date: 'Preferred date', time: 'Preferred time', comment: 'Comment', sent: 'Sent from Dental Legacy CR' }
     }
@@ -62,7 +60,7 @@
     comment: ''
   };
 
-  let currentView = 'intro';
+  let currentView = 'review';
   let currentLanguage = (() => {
     try {
       const storedLanguage = localStorage.getItem(languageStorageKey);
@@ -78,6 +76,23 @@
   const today = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`;
   dateInput.min = today;
 
+  const restoreDraft = () => {
+    try {
+      const draft = JSON.parse(localStorage.getItem(draftStorageKey));
+      if (!draft || typeof draft !== 'object') return;
+      nameInput.value = typeof draft.name === 'string' ? draft.name : '';
+      commentInput.value = typeof draft.comment === 'string' ? draft.comment : '';
+      if (typeof draft.reason === 'string') {
+        const reason = reasonInputs.find((input) => input.value === draft.reason);
+        if (reason) reason.checked = true;
+      }
+      if (typeof draft.date === 'string' && draft.date >= today) dateInput.value = draft.date;
+      if (/^\d{2}:\d{2}$/.test(draft.time || '')) timeInput.value = draft.time;
+    } catch {}
+  };
+
+  restoreDraft();
+
   const reasonFromQuery = {
     valoracion: 'general',
     implantes: 'implantes',
@@ -90,6 +105,13 @@
       matchingReason.checked = true;
       state.reason = matchingReason.value;
     }
+  }
+
+  if (timeInput.value) {
+    const [hour, minute] = timeInput.value.split(':').map(Number);
+    timeSelection.hour = String(hour % 12 || 12);
+    timeSelection.minute = pad(minute);
+    timeSelection.period = hour >= 12 ? 'PM' : 'AM';
   }
 
   const capitalize = (value) => value ? value.charAt(0).toUpperCase() + value.slice(1) : '';
@@ -170,6 +192,7 @@
     state.date = dateInput.value;
     state.time = timeInput.value;
     state.comment = commentInput.value.trim();
+    try { localStorage.setItem(draftStorageKey, JSON.stringify(state)); } catch {}
   };
 
   const validateStep = (step) => {
@@ -208,10 +231,9 @@
       clearError(3);
     } else {
       state.time = timeInput.value;
-      timeValue.textContent = state.time ? formatTime(state.time) : copy.selectTime;
-      timeTriggerLabel.textContent = state.time ? copy.enterPreferredTime : copy.timeFormat;
       clearError(4);
     }
+    syncState();
   };
 
   const timeOptions = {
@@ -221,6 +243,7 @@
   };
 
   const updateTimeWheel = (type, value, shouldScroll = false) => {
+    timeConfirmation.hidden = true;
     timeSelection[type] = value;
     const wheel = timeWheels[type];
     const options = [...wheel.querySelectorAll('[data-time-option]')];
@@ -274,15 +297,6 @@
     Object.entries(timeSelection).forEach(([type, value]) => updateTimeWheel(type, value, true));
   };
 
-  const setTimePickerOpen = (isOpen) => {
-    timePicker.hidden = !isOpen;
-    timeTrigger.setAttribute('aria-expanded', String(isOpen));
-    if (isOpen) {
-      populateTimePicker();
-      timeWheels.hour.querySelector('[aria-selected="true"]').focus();
-    }
-  };
-
   const buildMessage = () => {
     const copy = translations[currentLanguage].message;
     const lines = [
@@ -307,15 +321,6 @@
 
   const renderReview = () => {
     syncState();
-    document.querySelector('[data-review-name]').textContent = state.name;
-    document.querySelector('[data-review-reason]').textContent = translations[currentLanguage].reasons[state.reason];
-    document.querySelector('[data-review-date]').textContent = formatDate(state.date);
-    document.querySelector('[data-review-time]').textContent = formatTime(state.time);
-
-    const commentRow = document.querySelector('[data-review-comment-row]');
-    commentRow.hidden = !state.comment;
-    document.querySelector('[data-review-comment]').textContent = state.comment;
-
     whatsappLink.href = `https://wa.me/50687855335?text=${encodeURIComponent(buildMessage())}`;
   };
 
@@ -377,11 +382,12 @@
       const textNode = [...button.childNodes].find((node) => node.nodeType === Node.TEXT_NODE);
       if (textNode) textNode.nodeValue = ` ${copy.back}`;
     });
-    setLeadingText(document.querySelector('button[type="submit"]'), copy.reviewRequest);
+    const submitButton = document.querySelector('button[type="submit"]');
+    if (submitButton) setLeadingText(submitButton, copy.reviewRequest);
 
-    document.querySelector('.review-view>.eyebrow').textContent = copy.request;
-    document.querySelector('#review-title').textContent = copy.ready;
+    document.querySelector('#review-title').textContent = copy.request;
     document.querySelector('.review-intro').textContent = copy.reviewIntro;
+    document.querySelector('.review-note').textContent = copy.reviewNote;
     document.querySelector('.request-ticket').setAttribute('aria-label', copy.requestSummary);
     document.querySelector('.ticket-heading span').textContent = copy.request;
     const ticketTerms = document.querySelectorAll('.ticket-details dt');
@@ -389,14 +395,16 @@
       .forEach((label, index) => { ticketTerms[index].textContent = label; });
     document.querySelector('.ticket-footer').textContent = copy.generated;
     setLeadingText(whatsappLink, copy.sendWhatsapp);
-    document.querySelector('[data-edit]').textContent = copy.edit;
+    const editButton = document.querySelector('[data-edit]');
+    if (editButton) editButton.textContent = copy.edit;
 
     updatePicker('date');
     updatePicker('time');
     updateProgress(currentView);
+    renderReview();
   };
 
-  document.querySelector('[data-start]').addEventListener('click', () => showView('1'));
+  document.querySelector('[data-start]')?.addEventListener('click', () => showView('1'));
 
   document.querySelectorAll('[data-next]').forEach((button) => {
     button.addEventListener('click', () => {
@@ -413,13 +421,15 @@
     });
   });
 
-  nameInput.addEventListener('input', () => clearError(1));
+  nameInput.addEventListener('input', () => { clearError(1); renderReview(); });
   reasonInputs.forEach((input) => input.addEventListener('change', () => {
     state.reason = input.value;
     clearError(2);
+    renderReview();
   }));
-  dateInput.addEventListener('change', () => updatePicker('date'));
-  timeInput.addEventListener('change', () => updatePicker('time'));
+  dateInput.addEventListener('change', () => { updatePicker('date'); renderReview(); });
+  timeInput.addEventListener('change', () => { updatePicker('time'); renderReview(); });
+  commentInput.addEventListener('input', renderReview);
 
   document.querySelector('[data-time-confirm]').addEventListener('click', () => {
     const hour12 = Number(timeSelection.hour);
@@ -427,26 +437,16 @@
     const hour24 = timeSelection.period === 'PM' ? (hour12 % 12) + 12 : hour12 % 12;
     timeInput.value = `${pad(hour24)}:${pad(minute)}`;
     timeInput.dispatchEvent(new Event('change', { bubbles: true }));
-    setTimePickerOpen(false);
-    timeTrigger.focus();
+    timeConfirmation.textContent = `${translations[currentLanguage].timeSelected} ${formatTime(timeInput.value)}`;
+    timeConfirmation.hidden = false;
+    renderReview();
   });
 
   document.querySelectorAll('[data-picker-trigger]').forEach((button) => {
     button.addEventListener('click', () => {
-      if (button.dataset.pickerTrigger === 'time') {
-        setTimePickerOpen(timePicker.hidden);
-        return;
-      }
       if (typeof dateInput.showPicker === 'function') dateInput.showPicker();
       else dateInput.click();
     });
-  });
-
-  document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape' && !timePicker.hidden) {
-      setTimePickerOpen(false);
-      timeTrigger.focus();
-    }
   });
 
   buildTimeWheels();
@@ -465,5 +465,5 @@
     showView('review');
   });
 
-  document.querySelector('[data-edit]').addEventListener('click', () => showView('1'));
+  document.querySelector('[data-edit]')?.addEventListener('click', () => showView('1'));
 })();

@@ -1,9 +1,31 @@
 (() => {
   'use strict';
+  function initScrollCarousel(cards,reduced){
+    if(!window.gsap||!window.ScrollTrigger||reduced.matches)return;
+    const stage=document.querySelector('.reels-stage');
+    if(!stage||stage.classList.contains('is-carousel'))return;
+    const {gsap,ScrollTrigger}=window;
+    stage.classList.add('is-carousel');
+    stage.closest('.editorial-reels').classList.add('has-reel-carousel');
+    const offset=()=>innerWidth*(innerWidth<=600?.88:.62);
+    gsap.set(cards,{xPercent:-50,yPercent:-50,x:index=>index*offset(),autoAlpha:0,scale:.94});
+    const carousel=gsap.timeline({defaults:{ease:'none'},scrollTrigger:{
+      trigger:stage,start:()=>`top top+=${innerWidth<=600?76:100}`,end:()=>`+=${innerHeight*2}`,scrub:true,invalidateOnRefresh:true
+    }});
+    carousel.to(cards[0],{autoAlpha:1,scale:1,duration:.18,ease:'power2.out'},0)
+      .to(cards[0],{x:()=>-offset(),duration:1},0)
+      .to(cards[1],{x:0,duration:1},0)
+      .to(cards[1],{autoAlpha:1,scale:1,duration:.18,ease:'power2.out'},.55)
+      .to(cards[1],{x:()=>-offset(),duration:1},1)
+      .to(cards[2],{x:0,duration:1},1)
+      .to(cards[2],{autoAlpha:1,scale:1,duration:.18,ease:'power2.out'},1.55);
+    ScrollTrigger.refresh();
+  }
   function init() {
     const cards=[...document.querySelectorAll('.reel')];
     if(!cards.length) return;
     const reduced=matchMedia('(prefers-reduced-motion:reduce)'),ratios=new Map();
+    initScrollCarousel(cards,reduced);
     let chosen=null;
     const states=cards.map(card=>{
       const video=card.querySelector('video'),play=card.querySelector('.reel-play'),sound=card.querySelector('.reel-sound');

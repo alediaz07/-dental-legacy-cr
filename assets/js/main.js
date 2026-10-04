@@ -153,7 +153,7 @@
     desktopNav.setAttribute('aria-label', copy.navLabel);
     [...desktopNav.querySelectorAll('a')].forEach((link, index) => { link.textContent = copy.nav[index]; });
     document.querySelector('.header-booking').textContent = copy.booking;
-    setOwnText(document.querySelector('.menu-toggle'), copy.menu);
+    document.querySelector('.menu-toggle').setAttribute('aria-label', copy.menu);
     document.querySelector('.header-language-switch').setAttribute('aria-label', copy.languageLabel);
     document.querySelectorAll('[data-language-switch]').forEach((button) => {
       button.setAttribute('aria-pressed', String(button.dataset.languageSwitch === language));
@@ -169,8 +169,6 @@
     const heroWords = document.querySelectorAll('.scene-hero h1 .line>*');
     copy.hero.forEach((word, index) => { heroWords[index].textContent = word; });
     setTextParts(document.querySelector('.hero-description'), copy.heroDescription);
-    document.querySelector('.hero-actions .button span').textContent = copy.booking;
-    setOwnText(document.querySelector('.hero-actions .text-link'), copy.philosophyLink);
 
     document.querySelector('.scene-beyond .eyebrow').textContent = copy.beyondEyebrow;
     setHeading('#beyond-title', copy.beyond.slice(0, 2), copy.beyond[2]);
@@ -187,7 +185,6 @@
     document.querySelector('.scene-natural .eyebrow').textContent = copy.naturalEyebrow;
     setHeading('#natural-title', [copy.natural[0]], copy.natural[1]);
     setTextParts(document.querySelector('.scene-natural .scene-copy>p:last-child'), copy.naturalCopy);
-    setOwnText(document.querySelector('.scroll-cue'), copy.scrollCue);
 
     const storySummary = document.querySelector('.journey+.sr-only');
     storySummary.querySelector('h2').textContent = copy.storySummaryTitle;
@@ -378,6 +375,7 @@
   }));
 
   const languageGate = document.querySelector('[data-language-gate]');
+  const skipLanguageGate = new URLSearchParams(window.location.search).has('skip-language-gate');
   const languageContent = [...document.querySelectorAll('[data-language-content]')];
   const unlockLanguageContent = () => languageContent.forEach((element) => element.removeAttribute('inert'));
   const refreshStorySafely = () => {
@@ -444,7 +442,7 @@
   const storedLanguage = readStoredLanguage();
   applyHomeLanguage(storedLanguage || 'es', false);
   initializeExperience();
-  if (storedLanguage) finishLanguageGate(false);
+  if (skipLanguageGate) finishLanguageGate(false);
   else {
     document.documentElement.classList.add('language-gate-open');
     requestAnimationFrame(() => languageGate.querySelector('button').focus());
